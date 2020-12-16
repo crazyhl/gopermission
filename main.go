@@ -1,0 +1,5 @@
+package gopermission
+
+func init() {
+
+}
