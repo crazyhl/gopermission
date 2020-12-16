@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"github.com/crazyhl/gopermission/base_struct"
 	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -21,7 +22,9 @@ func Db(dbConfig base_struct.DbConfig) *gorm.DB {
 	if err != nil {
 		panic(err.Error())
 	}
-	//_ = db.AutoMigrate(&models.User{})
+	// 创建表
+	_ = db.AutoMigrate(&models.Rule{})
+	_ = db.AutoMigrate(&models.Permission{})
 	config.GetConfig().GormDb = db
 	return db
 }
