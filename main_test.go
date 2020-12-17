@@ -4,6 +4,7 @@ import (
 	"github.com/crazyhl/gopermission/v1/base_struct"
 	"github.com/crazyhl/gopermission/v1/models"
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
+	ruleService "github.com/crazyhl/gopermission/v1/service/rule"
 	"testing"
 )
 
@@ -53,11 +54,46 @@ func Test_Update_Permission(t *testing.T) {
 	t.Log(err)
 }
 
-func Test_Delte_Permission(t *testing.T) {
+func Test_Delete_Permission(t *testing.T) {
 	register()
 	p := permissionService.FindById(1)
 
 	count, err := p.Delete()
+	t.Log(count)
+	t.Log(err)
+}
+
+func Test_Add_Rule(t *testing.T) {
+	register()
+	r := &models.Rule{
+		Name: "test",
+	}
+	var err error
+	r, err = r.Add()
+
+	t.Log(r)
+	t.Log(err)
+}
+
+func Test_Update_Rule(t *testing.T) {
+	register()
+	r := ruleService.FindById(1)
+
+	t.Log(r)
+	r.Name = "test update"
+
+	var err error
+	r, err = r.Update()
+
+	t.Log(r)
+	t.Log(err)
+}
+
+func Test_Delete_Rule(t *testing.T) {
+	register()
+	r := ruleService.FindById(1)
+
+	count, err := r.Delete()
 	t.Log(count)
 	t.Log(err)
 }
