@@ -2,19 +2,27 @@ package gopermission
 
 import (
 	"crypto/md5"
-	"github.com/crazyhl/gopermission/base_struct"
-	"github.com/crazyhl/gopermission/bootstrap"
-	"github.com/crazyhl/gopermission/config"
-	"github.com/crazyhl/gopermission/models"
-	"github.com/crazyhl/gopermission/route"
+	"github.com/crazyhl/gopermission/v1/base_struct"
+	"github.com/crazyhl/gopermission/v1/bootstrap"
+	"github.com/crazyhl/gopermission/v1/config"
+	"github.com/crazyhl/gopermission/v1/models"
+	"github.com/crazyhl/gopermission/v1/route"
+	"gorm.io/gorm"
 )
 
 var customCheckFunction base_struct.CustomModelCheck
 
 // 注册使用权限系统
-func Register(dbConfig base_struct.DbConfig, checkFunction base_struct.CustomModelCheck) {
+func RegisterWithConfig(dbConfig base_struct.DbConfig, checkFunction base_struct.CustomModelCheck) {
 	// 初始化数据库
 	bootstrap.Db(dbConfig)
+	customCheckFunction = checkFunction
+}
+
+// 注册使用权限系统
+func RegisterWithDb(gormDb *gorm.DB, checkFunction base_struct.CustomModelCheck) {
+	// 初始化数据库
+	bootstrap.AutoMigrateAndSetToContainer(gormDb)
 	customCheckFunction = checkFunction
 }
 

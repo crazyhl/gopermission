@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/crazyhl/gopermission/utils"
+	"github.com/crazyhl/gopermission/v1/utils"
 	"strconv"
 	"strings"
 )

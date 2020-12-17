@@ -1,8 +1,8 @@
 package validator
 
 import (
-	"github.com/crazyhl/gopermission/base_struct"
-	"github.com/crazyhl/gopermission/utils/trans"
+	"github.com/crazyhl/gopermission/v1/base_struct"
+	"github.com/crazyhl/gopermission/v1/utils/trans"
 	"github.com/go-playground/validator/v10"
 	"github.com/go-playground/validator/v10/translations/zh"
 )
