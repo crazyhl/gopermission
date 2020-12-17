@@ -1,8 +1,11 @@
 package gopermission
 
 import (
+	"fmt"
+	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/crazyhl/gopermission/v1/base_struct"
 	"github.com/crazyhl/gopermission/v1/models"
+	"github.com/crazyhl/gopermission/v1/parser"
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
 	ruleService "github.com/crazyhl/gopermission/v1/service/rule"
 	"testing"
@@ -172,6 +175,23 @@ func Test_Clear_Rule_Permission(t *testing.T) {
 	t.Log(err)
 }
 
+func Test_Parser(t *testing.T) {
+	is := antlr.NewInputStream("model.uid == user.id || model.category.id in user.categories || (model.uid == user.uid && model.a >= user.a)")
+
+	// Create the Lexer
+	lexer := parser.NewConditionLexer(is)
+
+	// Read all tokens
+	for {
+		t := lexer.NextToken()
+		if t.GetTokenType() == antlr.TokenEOF {
+			break
+		}
+		fmt.Printf("%s (%q)\n",
+			lexer.SymbolicNames[t.GetTokenType()], t.GetText())
+	}
+}
+
 // --------------------- private function -----------------------------
 
 func register() {
@@ -183,7 +203,7 @@ func register() {
 		Database: "finance",
 		Charset:  "utf8mb4",
 		Location: "Asia%2fShanghai",
-	}, func(modelName string, getModelFieldName string, paramValue string, condition string) bool {
+	}, func(modelName string, getModelFieldName string, paramValue string, condition string, user map[interface{}]interface{}) bool {
 		return true
 	})
 }

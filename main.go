@@ -43,7 +43,7 @@ func GetPermission(path string) []models.Permission {
 }
 
 // 权限检测
-func HasPermission(path string, uri string, userPermissions []models.Permission) bool {
+func HasPermission(user map[interface{}]interface{}, path string, uri string, userPermissions []models.Permission) bool {
 	bindPermissions := GetPermission(path)
 	// 如果 路径没有绑定任何权限，那么就直接通过
 	if len(bindPermissions) == 0 {
@@ -60,7 +60,7 @@ func HasPermission(path string, uri string, userPermissions []models.Permission)
 				}
 				// 如果绑定了权限，那么就要进行后续判定了
 				paramValue := GetParams(path, uri, bindPermission.UrlParamName)
-				customCheckResult := customCheckFunction(bindPermission.ModelName, bindPermission.GetModelFieldName, paramValue, bindPermission.ModelCheckCondition)
+				customCheckResult := customCheckFunction(bindPermission.ModelName, bindPermission.GetModelFieldName, paramValue, bindPermission.ModelCheckCondition, user)
 				// 只要有一个条件返回 true 就可以通过了
 				if customCheckResult == true {
 					return true

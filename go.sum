@@ -1,3 +1,5 @@
+github.com/antlr/antlr4 v0.0.0-20201214011320-c79b0fd80c9d h1:uA+3jkHfX7cieBgh5GBV++KZQbGdBz0VHJBWQTFvAss=
+github.com/antlr/antlr4 v0.0.0-20201214011320-c79b0fd80c9d/go.mod h1:T7PbCXFs94rrTttyxjbyT5+/1V8T2TYDejxUfHJjw1Y=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-playground/assert/v2 v2.0.1 h1:MsBgLAaY856+nPRTKrp3/OZK38U/wa0CcBYNjji3q3A=

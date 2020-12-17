@@ -12,6 +12,10 @@
 
 目前计划支持多个条件有一个条件允许就可以访问
 
+条件的设定条件 `model` 指代关联模型，`user` 代表登录用户
+条件可以写成 `model.category.id in user.categories || model.uid == user.id`
+
+
 ## 图示
 ![图示](./flow_chart.png)
 
