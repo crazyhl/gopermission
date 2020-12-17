@@ -1,10 +1,10 @@
 package models
 
 import (
-	"crypto/md5"
-	"fmt"
 	"github.com/crazyhl/gopermission/v1/config"
+	"github.com/crazyhl/gopermission/v1/utils"
 	"github.com/crazyhl/gopermission/v1/utils/validator"
+	"gorm.io/gorm"
 )
 
 // 权限
@@ -22,8 +22,6 @@ type Permission struct {
 
 // 增加
 func (p *Permission) Add() (*Permission, error) {
-	p.UrlMd5 = getUrlMd5(p.Url)
-
 	errs := validator.Validate(p)
 	if len(errs) > 0 {
 		return nil, errs[0]
@@ -65,11 +63,7 @@ func (p *Permission) Delete() (int64, error) {
 	return result.RowsAffected, nil
 }
 
-func getUrlMd5(url string) string {
-	if len(url) == 0 {
-		return ""
-	}
-	urlBytes := []byte(url)
-	md5Bytes := md5.Sum(urlBytes)
-	return fmt.Sprintf("%x", md5Bytes)
+func (p *Permission) BeforeCreate(tx *gorm.DB) (err error) {
+	p.UrlMd5 = utils.GetStrMd5(p.Url)
+	return
 }

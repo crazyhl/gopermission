@@ -98,6 +98,41 @@ func Test_Delete_Rule(t *testing.T) {
 	t.Log(err)
 }
 
+func Test_Add_Rule_With_Permission(t *testing.T) {
+	register()
+	r := &models.Rule{
+		Name: "test",
+	}
+	permissions := []models.Permission{}
+	permissions = append(permissions, models.Permission{
+		Name: "testp",
+		Url:  "/fdsa/fdsa",
+	})
+	r.Permissions = permissions
+
+	var err error
+	r, err = r.Add()
+
+	t.Log(r)
+	t.Log(err)
+}
+
+func Test_Add_Rule_With_Exist_Permission(t *testing.T) {
+	register()
+	r := &models.Rule{
+		Name: "test2",
+	}
+	permissions := []models.Permission{}
+	permissions = append(permissions, *permissionService.FindById(2))
+	r.Permissions = permissions
+
+	var err error
+	r, err = r.Add()
+
+	t.Log(r)
+	t.Log(err)
+}
+
 // --------------------- private function -----------------------------
 
 func register() {
