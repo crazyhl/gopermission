@@ -13,3 +13,10 @@ func FindById(id int) *models.Rule {
 
 	return &r
 }
+
+func FindByIds(ids []int) []models.Rule {
+	db := config.GetConfig().GormDb
+	rules := []models.Rule{}
+	db.Where("id IN ?", ids).Find(&rules)
+	return rules
+}

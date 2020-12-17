@@ -133,18 +133,40 @@ func Test_Add_Rule_With_Exist_Permission(t *testing.T) {
 	t.Log(err)
 }
 
+func Test_Attach_Rule_Permission(t *testing.T) {
+	register()
+	r := ruleService.FindById(6)
+	ids := []int{2, 3}
+	permissions := permissionService.FindByIds(ids)
+	t.Log(permissions)
+
+	var err error
+	r, err = r.AttachPermission(permissions)
+
+	t.Log(r)
+	t.Log(err)
+}
+
 func Test_Replace_Rule_Permission(t *testing.T) {
 	register()
-	r := ruleService.FindById(2)
-	permissions := []models.Permission{}
-	permissions = append(permissions, models.Permission{
-		Name: "testp3",
-		Url:  "/fdsa/fdsa",
-	})
-	r.Permissions = permissions
-	t.Log(r.Permissions)
+	r := ruleService.FindById(6)
+	ids := []int{4}
+	permissions := permissionService.FindByIds(ids)
+	t.Log(permissions)
+
 	var err error
-	r, err = r.Update()
+	r, err = r.ReplacePermission(permissions)
+
+	t.Log(r)
+	t.Log(err)
+}
+
+func Test_Clear_Rule_Permission(t *testing.T) {
+	register()
+	r := ruleService.FindById(6)
+
+	var err error
+	r, err = r.ClearPermission()
 
 	t.Log(r)
 	t.Log(err)

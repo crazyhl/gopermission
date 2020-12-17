@@ -55,3 +55,39 @@ func (r *Rule) Delete() (int64, error) {
 
 	return result.RowsAffected, nil
 }
+
+// 角色添加权限
+func (r *Rule) AttachPermission(p []Permission) (*Rule, error) {
+	db := config.GetConfig().GormDb
+
+	err := db.Model(r).Association("Permissions").Append(p)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+// 将角色权限替换为新的权限列表
+func (r *Rule) ReplacePermission(p []Permission) (*Rule, error) {
+	db := config.GetConfig().GormDb
+
+	err := db.Model(r).Association("Permissions").Replace(p)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+// 清空角色的所有权限
+func (r *Rule) ClearPermission() (*Rule, error) {
+	db := config.GetConfig().GormDb
+
+	err := db.Model(r).Association("Permissions").Clear()
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}

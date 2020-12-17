@@ -13,3 +13,10 @@ func FindById(id int) *models.Permission {
 
 	return &p
 }
+
+func FindByIds(ids []int) []models.Permission {
+	db := config.GetConfig().GormDb
+	permissions := []models.Permission{}
+	db.Where("id IN ?", ids).Find(&permissions)
+	return permissions
+}
