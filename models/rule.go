@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/crazyhl/gopermission/v1/config"
 	"github.com/crazyhl/gopermission/v1/utils/validator"
+	"gorm.io/gorm/clause"
 )
 
 // 角色
@@ -28,7 +29,7 @@ func (r *Rule) Add() (*Rule, error) {
 	return r, nil
 }
 
-// 更新
+// 更新 - 这个只更新本体，不要更新关联权限相关，权限相关用后面权限相关的方法
 func (r *Rule) Update() (*Rule, error) {
 	errs := validator.Validate(r)
 	if len(errs) > 0 {
@@ -47,7 +48,7 @@ func (r *Rule) Update() (*Rule, error) {
 // 删除
 func (r *Rule) Delete() (int64, error) {
 	db := config.GetConfig().GormDb
-	result := db.Delete(r)
+	result := db.Select(clause.Associations).Delete(r)
 	if result.Error != nil {
 		return 0, result.Error
 	}

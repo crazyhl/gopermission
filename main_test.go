@@ -91,7 +91,7 @@ func Test_Update_Rule(t *testing.T) {
 
 func Test_Delete_Rule(t *testing.T) {
 	register()
-	r := ruleService.FindById(1)
+	r := ruleService.FindById(4)
 
 	count, err := r.Delete()
 	t.Log(count)
@@ -128,6 +128,23 @@ func Test_Add_Rule_With_Exist_Permission(t *testing.T) {
 
 	var err error
 	r, err = r.Add()
+
+	t.Log(r)
+	t.Log(err)
+}
+
+func Test_Replace_Rule_Permission(t *testing.T) {
+	register()
+	r := ruleService.FindById(2)
+	permissions := []models.Permission{}
+	permissions = append(permissions, models.Permission{
+		Name: "testp3",
+		Url:  "/fdsa/fdsa",
+	})
+	r.Permissions = permissions
+	t.Log(r.Permissions)
+	var err error
+	r, err = r.Update()
 
 	t.Log(r)
 	t.Log(err)
