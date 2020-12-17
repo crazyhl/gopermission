@@ -2,6 +2,7 @@ package gopermission
 
 import (
 	"crypto/md5"
+	"fmt"
 	"github.com/crazyhl/gopermission/v1/base_struct"
 	"github.com/crazyhl/gopermission/v1/bootstrap"
 	"github.com/crazyhl/gopermission/v1/config"
@@ -31,7 +32,7 @@ func GetPermission(path string) []models.Permission {
 	// 参数 path 是 传入 权限的 url 字段
 	pathBytes := []byte(path)
 	md5Bytes := md5.Sum(pathBytes)
-	md5Str := string(md5Bytes[:])
+	md5Str := fmt.Sprintf("%x", md5Bytes)
 	db := config.GetConfig().GormDb
 
 	permissions := []models.Permission{}

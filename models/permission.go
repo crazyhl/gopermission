@@ -1,5 +1,12 @@
 package models
 
+import (
+	"crypto/md5"
+	"fmt"
+	"github.com/crazyhl/gopermission/v1/config"
+	"github.com/crazyhl/gopermission/v1/utils/validator"
+)
+
 // 权限
 type Permission struct {
 	BaseModel
@@ -11,4 +18,58 @@ type Permission struct {
 	UrlParamName        string  `gorm:"not null;default: '';"`                                        // 从 url 获取参数的字段名
 	ModelCheckCondition string  `gorm:"not null;default: '';"`                                        // 绑定的模型名称跟登录用户的判定条件，这个准备实现一个自己的语义逻辑
 	Rules               []*Rule `gorm:"many2many:rule_permissions;"`
+}
+
+// 增加
+func (p *Permission) Add() (*Permission, error) {
+	p.UrlMd5 = getUrlMd5(p.Url)
+
+	errs := validator.Validate(p)
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+
+	db := config.GetConfig().GormDb
+	result := db.Create(p)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return p, nil
+}
+
+// 更新
+func (p *Permission) Update() (*Permission, error) {
+	errs := validator.Validate(p)
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+
+	db := config.GetConfig().GormDb
+	result := db.Save(p)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return p, nil
+}
+
+// 删除
+func (p *Permission) Delete() (int64, error) {
+	db := config.GetConfig().GormDb
+	result := db.Delete(p)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+
+	return result.RowsAffected, nil
+}
+
+func getUrlMd5(url string) string {
+	if len(url) == 0 {
+		return ""
+	}
+	urlBytes := []byte(url)
+	md5Bytes := md5.Sum(urlBytes)
+	return fmt.Sprintf("%x", md5Bytes)
 }

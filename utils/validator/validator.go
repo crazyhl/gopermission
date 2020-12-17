@@ -13,7 +13,7 @@ func Validate(model interface{}) []error {
 	validate := validator.New()
 	err := validate.Struct(model)
 	ts := trans.ZhTranslator()
-	zh.RegisterDefaultTranslations(validate, ts)
+	_ = zh.RegisterDefaultTranslations(validate, ts)
 	if err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
 			validateErrors = append(validateErrors, base_struct.ValidateError{
