@@ -47,7 +47,15 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	case parser.ConditionLexerEqualOP:
 		// ==
 		fmt.Println("等于比较")
-		l.push(leftValue == rightValue)
+		leftStr := fmt.Sprint(leftValue)
+		rightStr := fmt.Sprint(rightValue)
+		l.push(leftStr == rightStr)
+	case parser.ConditionLexerNotEqualOP:
+		// !=
+		fmt.Println("不等于比较")
+		leftStr := fmt.Sprint(leftValue)
+		rightStr := fmt.Sprint(rightValue)
+		l.push(leftStr != rightStr)
 	case parser.ConditionLexerLargerOp:
 		// >
 		fmt.Println("大于比较")
@@ -105,11 +113,11 @@ func (l *ConditionListener) pop() bool {
 	return result
 }
 
-func (l *ConditionListener) getValue(paramStr string) string {
+func (l *ConditionListener) getValue(paramStr string) interface{} {
 	paramsArr := strings.Split(paramStr, ".")
 	paramsLen := len(paramsArr)
 	if paramsLen <= 1 {
-		return ""
+		return nil
 	}
 	modelType := paramsArr[0]
 	valueData := make(map[interface{}]interface{})
@@ -127,13 +135,13 @@ func (l *ConditionListener) getValue(paramStr string) string {
 	for idx := 1; idx < paramsLen; idx++ {
 		param := paramsArr[idx]
 		if idx == paramsLen-1 {
-			return fmt.Sprint(valueData[param])
+			return valueData[param]
 		}
 		if valueData[param] == nil {
-			return ""
+			return nil
 		}
 		valueData = valueData[param].(map[interface{}]interface{})
 	}
 
-	return ""
+	return nil
 }

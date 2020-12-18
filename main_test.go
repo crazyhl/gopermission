@@ -226,12 +226,39 @@ func Test_Struct_To_Map(t *testing.T) {
 	fmt.Println(userMap)
 }
 
-func Test_Condition_Check(t *testing.T) {
+func Test_Condition_Equal_Check(t *testing.T) {
 
 	condition := "model.Uid == user.Id"
 	modelData := make(map[interface{}]interface{})
 	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 456
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_Not_Equal_Check(t *testing.T) {
+	condition := "model.Uid != user.Id"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
 	modelData["Uid"] = 123
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_Deep_Equal_Check(t *testing.T) {
+	condition := "model.Article.Uid == user.Id"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 123
+	articleMap := make(map[interface{}]interface{})
+	articleMap["Uid"] = 456
+	modelData["Article"] = articleMap
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)

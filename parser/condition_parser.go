@@ -16,29 +16,29 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 16, 33, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 33, 4,
 	2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 20, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 7, 3, 28, 10, 3, 12, 3, 14, 3, 31, 11, 3, 3, 3, 2, 3, 4, 4, 2,
-	4, 2, 3, 3, 2, 3, 8, 2, 34, 2, 6, 3, 2, 2, 2, 4, 19, 3, 2, 2, 2, 6, 7,
-	5, 4, 3, 2, 7, 3, 3, 2, 2, 2, 8, 9, 8, 3, 1, 2, 9, 10, 7, 9, 2, 2, 10,
-	11, 5, 4, 3, 2, 11, 12, 7, 10, 2, 2, 12, 20, 3, 2, 2, 2, 13, 14, 7, 13,
-	2, 2, 14, 15, 9, 2, 2, 2, 15, 20, 7, 14, 2, 2, 16, 17, 7, 13, 2, 2, 17,
-	18, 9, 2, 2, 2, 18, 20, 7, 13, 2, 2, 19, 8, 3, 2, 2, 2, 19, 13, 3, 2, 2,
+	4, 2, 3, 3, 2, 3, 9, 2, 34, 2, 6, 3, 2, 2, 2, 4, 19, 3, 2, 2, 2, 6, 7,
+	5, 4, 3, 2, 7, 3, 3, 2, 2, 2, 8, 9, 8, 3, 1, 2, 9, 10, 7, 10, 2, 2, 10,
+	11, 5, 4, 3, 2, 11, 12, 7, 11, 2, 2, 12, 20, 3, 2, 2, 2, 13, 14, 7, 14,
+	2, 2, 14, 15, 9, 2, 2, 2, 15, 20, 7, 15, 2, 2, 16, 17, 7, 14, 2, 2, 17,
+	18, 9, 2, 2, 2, 18, 20, 7, 14, 2, 2, 19, 8, 3, 2, 2, 2, 19, 13, 3, 2, 2,
 	2, 19, 16, 3, 2, 2, 2, 20, 29, 3, 2, 2, 2, 21, 22, 12, 4, 2, 2, 22, 23,
-	7, 12, 2, 2, 23, 28, 5, 4, 3, 5, 24, 25, 12, 3, 2, 2, 25, 26, 7, 11, 2,
+	7, 13, 2, 2, 23, 28, 5, 4, 3, 5, 24, 25, 12, 3, 2, 2, 25, 26, 7, 12, 2,
 	2, 26, 28, 5, 4, 3, 4, 27, 21, 3, 2, 2, 2, 27, 24, 3, 2, 2, 2, 28, 31,
 	3, 2, 2, 2, 29, 27, 3, 2, 2, 2, 29, 30, 3, 2, 2, 2, 30, 5, 3, 2, 2, 2,
 	31, 29, 3, 2, 2, 2, 5, 19, 27, 29,
 }
 var literalNames = []string{
-	"", "'=='", "'>'", "'>='", "'<'", "'<='", "'in'", "'('", "')'", "'||'",
-	"'&&'",
+	"", "'=='", "'!='", "'>'", "'>='", "'<'", "'<='", "'in'", "'('", "')'",
+	"'||'", "'&&'",
 }
 var symbolicNames = []string{
-	"", "EqualOP", "LargerOp", "LargerEqualOp", "LessOp", "LessEqualOp", "InOP",
-	"LeftParen", "RightParen", "OrOP", "AndOP", "Paramater", "Number", "Whitespace",
-	"Newline",
+	"", "EqualOP", "NotEqualOP", "LargerOp", "LargerEqualOp", "LessOp", "LessEqualOp",
+	"InOP", "LeftParen", "RightParen", "OrOP", "AndOP", "Paramater", "Number",
+	"Whitespace", "Newline",
 }
 
 var ruleNames = []string{
@@ -78,19 +78,20 @@ func NewConditionParser(input antlr.TokenStream) *ConditionParser {
 const (
 	ConditionParserEOF           = antlr.TokenEOF
 	ConditionParserEqualOP       = 1
-	ConditionParserLargerOp      = 2
-	ConditionParserLargerEqualOp = 3
-	ConditionParserLessOp        = 4
-	ConditionParserLessEqualOp   = 5
-	ConditionParserInOP          = 6
-	ConditionParserLeftParen     = 7
-	ConditionParserRightParen    = 8
-	ConditionParserOrOP          = 9
-	ConditionParserAndOP         = 10
-	ConditionParserParamater     = 11
-	ConditionParserNumber        = 12
-	ConditionParserWhitespace    = 13
-	ConditionParserNewline       = 14
+	ConditionParserNotEqualOP    = 2
+	ConditionParserLargerOp      = 3
+	ConditionParserLargerEqualOp = 4
+	ConditionParserLessOp        = 5
+	ConditionParserLessEqualOp   = 6
+	ConditionParserInOP          = 7
+	ConditionParserLeftParen     = 8
+	ConditionParserRightParen    = 9
+	ConditionParserOrOP          = 10
+	ConditionParserAndOP         = 11
+	ConditionParserParamater     = 12
+	ConditionParserNumber        = 13
+	ConditionParserWhitespace    = 14
+	ConditionParserNewline       = 15
 )
 
 // ConditionParser rules.
@@ -313,6 +314,10 @@ func (s *CompareContext) LessEqualOp() antlr.TerminalNode {
 
 func (s *CompareContext) InOP() antlr.TerminalNode {
 	return s.GetToken(ConditionParserInOP, 0)
+}
+
+func (s *CompareContext) NotEqualOP() antlr.TerminalNode {
+	return s.GetToken(ConditionParserNotEqualOP, 0)
 }
 
 func (s *CompareContext) EnterRule(listener antlr.ParseTreeListener) {
@@ -583,7 +588,7 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 
 			_la = p.GetTokenStream().LA(1)
 
-			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
+			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserNotEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
 				var _ri = p.GetErrorHandler().RecoverInline(p)
 
 				localctx.(*CompareContext).op = _ri
@@ -620,7 +625,7 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 
 			_la = p.GetTokenStream().LA(1)
 
-			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
+			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserNotEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
 				var _ri = p.GetErrorHandler().RecoverInline(p)
 
 				localctx.(*CompareContext).op = _ri

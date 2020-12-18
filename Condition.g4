@@ -2,6 +2,7 @@ grammar Condition;
 
 //操作符
 EqualOP:       '==' ;
+NotEqualOP:       '!=' ;
 LargerOp: '>';
 LargerEqualOp: '>='  ;
 LessOp: '<';
@@ -26,8 +27,8 @@ start : expression;
 
 expression
    : '('expression ')' # parensExpression
-   | left=Paramater  op=('=='|'>'|'>='|'<'|'<='|'in')  right=Number # compare
-   | left=Paramater  op=('=='|'>'|'>='|'<'|'<='|'in')  right=Paramater # compare
+   | left=Paramater  op=('=='|'>'|'>='|'<'|'<='|'in'|'!=')  right=Number # compare
+   | left=Paramater  op=('=='|'>'|'>='|'<'|'<='|'in'|'!=')  right=Paramater # compare
    | left=expression AndOP right=expression # andCompare
    | left=expression OrOP right=expression # orCompare
    ;
