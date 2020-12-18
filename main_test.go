@@ -1,9 +1,9 @@
 package gopermission
 
 import (
-	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/crazyhl/gopermission/v1/base_struct"
+	listener2 "github.com/crazyhl/gopermission/v1/listener"
 	"github.com/crazyhl/gopermission/v1/models"
 	"github.com/crazyhl/gopermission/v1/parser"
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
@@ -175,47 +175,6 @@ func Test_Clear_Rule_Permission(t *testing.T) {
 	t.Log(err)
 }
 
-type conditionListener struct {
-	*parser.BaseConditionListener
-
-	stack []int
-}
-
-func (l *conditionListener) push(i int) {
-	l.stack = append(l.stack, i)
-}
-
-func (l *conditionListener) pop() int {
-	if len(l.stack) < 1 {
-		panic("stack is empty unable to pop")
-	}
-
-	// Get the last value from the stack.
-	result := l.stack[len(l.stack)-1]
-
-	// Remove the last element from the stack.
-	l.stack = l.stack[:len(l.stack)-1]
-
-	return result
-}
-
-func (l *conditionListener) ExitParensExpression(c *parser.ParensExpressionContext) {
-	fmt.Println("-------------括号运算--------------")
-	fmt.Println(c.GetChildCount())
-	fmt.Println(c.GetText())
-	fmt.Println("-------------括号运算--------------")
-}
-
-func (l *conditionListener) ExitCompare(c *parser.CompareContext) {
-	fmt.Println("-------------比较运算--------------")
-	fmt.Println(c.GetOp().GetText())
-	fmt.Println(c.GetChildCount())
-	fmt.Println(c.GetText())
-	fmt.Println(c.GetLeft().GetText())
-	fmt.Println(c.GetRight().GetText())
-	fmt.Println("-------------比较运算--------------")
-}
-
 func Test_Parser(t *testing.T) {
 	is := antlr.NewInputStream("(model.uid == user.uid || (model.a <= user.c && model.d in user.abc) )  || model.uid > 3")
 
@@ -233,7 +192,8 @@ func Test_Parser(t *testing.T) {
 	//}
 	steam := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	p := parser.NewConditionParser(steam)
-	antlr.ParseTreeWalkerDefault.Walk(&conditionListener{}, p.Start())
+	listener := &listener2.ConditionListener{}
+	antlr.ParseTreeWalkerDefault.Walk(listener, p.Start())
 }
 
 // --------------------- private function -----------------------------
