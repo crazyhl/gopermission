@@ -3,6 +3,7 @@ package conditon
 import (
 	"fmt"
 	"github.com/crazyhl/gopermission/v1/parser"
+	"strconv"
 	"strings"
 )
 
@@ -43,6 +44,11 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	fmt.Println(c.GetRight().GetText())
 	leftValue := l.getValue(c.GetLeft().GetText())
 	rightValue := l.getValue(c.GetRight().GetText())
+	// 如果两个选项有一个为空就返回空
+	if leftValue == nil || rightValue == nil {
+		l.push(false)
+		return
+	}
 	switch c.GetOp().GetTokenType() {
 	case parser.ConditionLexerEqualOP:
 		// ==
@@ -116,8 +122,16 @@ func (l *ConditionListener) pop() bool {
 func (l *ConditionListener) getValue(paramStr string) interface{} {
 	paramsArr := strings.Split(paramStr, ".")
 	paramsLen := len(paramsArr)
-	if paramsLen <= 1 {
+	if paramsLen < 1 {
 		return nil
+	}
+	if paramsLen == 1 {
+		// 建判断一下是不是 int
+		intValue, err := strconv.Atoi(paramStr)
+		if err != nil {
+			return nil
+		}
+		return intValue
 	}
 	modelType := paramsArr[0]
 	valueData := make(map[interface{}]interface{})

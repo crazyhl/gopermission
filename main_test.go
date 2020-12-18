@@ -10,6 +10,7 @@ import (
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
 	ruleService "github.com/crazyhl/gopermission/v1/service/rule"
 	"github.com/fatih/structs"
+	"strings"
 	"testing"
 )
 
@@ -227,8 +228,8 @@ func Test_Struct_To_Map(t *testing.T) {
 }
 
 func Test_Condition_Equal_Check(t *testing.T) {
-
-	condition := "model.Uid == user.Id"
+	//condition := "model.Uid == user.Id"
+	condition := "model.Uid == 3"
 	modelData := make(map[interface{}]interface{})
 	userData := make(map[interface{}]interface{})
 	modelData["Uid"] = 456
@@ -264,6 +265,10 @@ func Test_Condition_Deep_Equal_Check(t *testing.T) {
 	fmt.Println(userData)
 	result := conditon.GetConditionResult(condition, modelData, userData)
 	t.Log(result)
+	t.Log(fmt.Sprint(nil))
+	paramStr := "123"
+	paramsArr := strings.Split(paramStr, ".")
+	t.Log(paramsArr)
 }
 
 // --------------------- private function -----------------------------
