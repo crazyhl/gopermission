@@ -8,6 +8,7 @@ import (
 	"github.com/crazyhl/gopermission/v1/config"
 	"github.com/crazyhl/gopermission/v1/models"
 	"github.com/crazyhl/gopermission/v1/route"
+	"github.com/fatih/structs"
 	"gorm.io/gorm"
 )
 
@@ -78,4 +79,9 @@ func GetParams(path string, url string, paramKey string) string {
 
 	rp.GetMatch(url, url, &ctxParams, false)
 	return route.Params(rp.Params, ctxParams, paramKey)
+}
+
+// 把 struct 转换为 map
+func StructToMap(model interface{}) map[string]interface{} {
+	return structs.Map(&model)
 }

@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/antlr/antlr4 v0.0.0-20201214011320-c79b0fd80c9d
+	github.com/fatih/structs v1.1.0
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.4.1

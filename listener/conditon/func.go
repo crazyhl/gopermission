@@ -14,7 +14,7 @@ func GetConditionResult(conditionStr string, modelData map[interface{}]interface
 		return true
 	}
 	// 初始化 listener
-	listener := ConditionListener{
+	listener := &ConditionListener{
 		ModelData: modelData,
 		UserData:  userData,
 	}

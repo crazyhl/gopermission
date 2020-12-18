@@ -1,6 +1,7 @@
 package gopermission
 
 import (
+	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/crazyhl/gopermission/v1/base_struct"
 	"github.com/crazyhl/gopermission/v1/listener/conditon"
@@ -8,6 +9,7 @@ import (
 	"github.com/crazyhl/gopermission/v1/parser"
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
 	ruleService "github.com/crazyhl/gopermission/v1/service/rule"
+	"github.com/fatih/structs"
 	"testing"
 )
 
@@ -194,6 +196,47 @@ func Test_Parser(t *testing.T) {
 	p := parser.NewConditionParser(steam)
 	listener := &conditon.ConditionListener{}
 	antlr.ParseTreeWalkerDefault.Walk(listener, p.Start())
+}
+
+type User struct {
+	Username   string
+	Categories []Cateogory
+}
+
+type Cateogory struct {
+	Name string
+	Id   int
+}
+
+func Test_Struct_To_Map(t *testing.T) {
+	categories := make([]Cateogory, 0)
+	categories = append(categories, Cateogory{
+		Name: "c1",
+		Id:   1,
+	})
+	categories = append(categories, Cateogory{
+		Name: "c2",
+		Id:   2,
+	})
+	user := User{
+		Username:   "aaa",
+		Categories: categories,
+	}
+	userMap := structs.Map(user)
+	fmt.Println(userMap)
+}
+
+func Test_Condition_Check(t *testing.T) {
+
+	condition := "model.Uid == user.Id"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 123
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
 }
 
 // --------------------- private function -----------------------------
