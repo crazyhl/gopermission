@@ -16,6 +16,10 @@
 条件的设定条件 `model` 指代关联模型，`user` 代表登录用户
 条件可以写成 `model.category.id in user.categories || model.uid == user.id`
 
+## 注意
+1. 权限相关的绑定肯定是在开发期间做的，所以一定要做好充分测试。
+2. 这边只负责传入的数据是否正确，所以，如果获取数据时候获取不到，返回结果肯定是 `false` 的
+
 
 ## 图示
 ![图示](./flow_chart.png)

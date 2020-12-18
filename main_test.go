@@ -3,7 +3,7 @@ package gopermission
 import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/crazyhl/gopermission/v1/base_struct"
-	listener2 "github.com/crazyhl/gopermission/v1/listener"
+	"github.com/crazyhl/gopermission/v1/listener/conditon"
 	"github.com/crazyhl/gopermission/v1/models"
 	"github.com/crazyhl/gopermission/v1/parser"
 	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
@@ -192,7 +192,7 @@ func Test_Parser(t *testing.T) {
 	//}
 	steam := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
 	p := parser.NewConditionParser(steam)
-	listener := &listener2.ConditionListener{}
+	listener := &conditon.ConditionListener{}
 	antlr.ParseTreeWalkerDefault.Walk(listener, p.Start())
 }
 
