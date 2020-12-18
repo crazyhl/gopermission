@@ -40,6 +40,7 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	fmt.Println(c.GetText())
 	fmt.Println(c.GetLeft().GetText())
 	fmt.Println(c.GetRight().GetText())
+	fmt.Println(c.GetOp().GetTokenType() == parser.ConditionLexerInOP)
 	fmt.Println("-------------比较运算--------------")
 }
 
