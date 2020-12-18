@@ -15,24 +15,6 @@ type ConditionListener struct {
 	stack []bool
 }
 
-func (l *ConditionListener) push(i bool) {
-	l.stack = append(l.stack, i)
-}
-
-func (l *ConditionListener) pop() bool {
-	if len(l.stack) < 1 {
-		panic("stack is empty unable to pop")
-	}
-
-	// Get the last value from the stack.
-	result := l.stack[len(l.stack)-1]
-
-	// Remove the last element from the stack.
-	l.stack = l.stack[:len(l.stack)-1]
-
-	return result
-}
-
 // 返回结果
 func (l *ConditionListener) GetResult() bool {
 	if len(l.stack) < 1 {
@@ -78,4 +60,24 @@ func (l *ConditionListener) ExitAndCompare(c *parser.AndCompareContext) {
 	fmt.Println(c.GetLeft().GetText())
 	fmt.Println(c.GetRight().GetText())
 	fmt.Println("-------------And 比较运算--------------")
+}
+
+// ---------------------- private function ------------------------
+
+func (l *ConditionListener) push(i bool) {
+	l.stack = append(l.stack, i)
+}
+
+func (l *ConditionListener) pop() bool {
+	if len(l.stack) < 1 {
+		panic("stack is empty unable to pop")
+	}
+
+	// Get the last value from the stack.
+	result := l.stack[len(l.stack)-1]
+
+	// Remove the last element from the stack.
+	l.stack = l.stack[:len(l.stack)-1]
+
+	return result
 }
