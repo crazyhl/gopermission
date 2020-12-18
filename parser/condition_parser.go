@@ -16,34 +16,33 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 18, 40, 4,
-	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 3, 2, 3, 2, 3, 2, 3, 3, 3, 3, 3, 4, 3,
-	4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 5,
-	4, 27, 10, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 7, 4, 35, 10, 4, 12,
-	4, 14, 4, 38, 11, 4, 3, 4, 2, 3, 6, 5, 2, 4, 6, 2, 3, 4, 2, 3, 7, 10, 10,
-	2, 40, 2, 8, 3, 2, 2, 2, 4, 11, 3, 2, 2, 2, 6, 26, 3, 2, 2, 2, 8, 9, 5,
-	6, 4, 2, 9, 10, 7, 2, 2, 3, 10, 3, 3, 2, 2, 2, 11, 12, 9, 2, 2, 2, 12,
-	5, 3, 2, 2, 2, 13, 14, 8, 4, 1, 2, 14, 15, 7, 11, 2, 2, 15, 16, 5, 6, 4,
-	2, 16, 17, 7, 12, 2, 2, 17, 27, 3, 2, 2, 2, 18, 19, 7, 15, 2, 2, 19, 20,
-	5, 4, 3, 2, 20, 21, 7, 15, 2, 2, 21, 27, 3, 2, 2, 2, 22, 23, 7, 15, 2,
-	2, 23, 24, 5, 4, 3, 2, 24, 25, 7, 16, 2, 2, 25, 27, 3, 2, 2, 2, 26, 13,
-	3, 2, 2, 2, 26, 18, 3, 2, 2, 2, 26, 22, 3, 2, 2, 2, 27, 36, 3, 2, 2, 2,
-	28, 29, 12, 7, 2, 2, 29, 30, 7, 13, 2, 2, 30, 35, 5, 6, 4, 8, 31, 32, 12,
-	6, 2, 2, 32, 33, 7, 14, 2, 2, 33, 35, 5, 6, 4, 7, 34, 28, 3, 2, 2, 2, 34,
-	31, 3, 2, 2, 2, 35, 38, 3, 2, 2, 2, 36, 34, 3, 2, 2, 2, 36, 37, 3, 2, 2,
-	2, 37, 7, 3, 2, 2, 2, 38, 36, 3, 2, 2, 2, 5, 26, 34, 36,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 16, 33, 4,
+	2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 20, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 7, 3, 28, 10, 3, 12, 3, 14, 3, 31, 11, 3, 3, 3, 2, 3, 4, 4, 2,
+	4, 2, 3, 3, 2, 3, 8, 2, 34, 2, 6, 3, 2, 2, 2, 4, 19, 3, 2, 2, 2, 6, 7,
+	5, 4, 3, 2, 7, 3, 3, 2, 2, 2, 8, 9, 8, 3, 1, 2, 9, 10, 7, 9, 2, 2, 10,
+	11, 5, 4, 3, 2, 11, 12, 7, 10, 2, 2, 12, 20, 3, 2, 2, 2, 13, 14, 7, 13,
+	2, 2, 14, 15, 9, 2, 2, 2, 15, 20, 7, 14, 2, 2, 16, 17, 7, 13, 2, 2, 17,
+	18, 9, 2, 2, 2, 18, 20, 7, 13, 2, 2, 19, 8, 3, 2, 2, 2, 19, 13, 3, 2, 2,
+	2, 19, 16, 3, 2, 2, 2, 20, 29, 3, 2, 2, 2, 21, 22, 12, 4, 2, 2, 22, 23,
+	7, 12, 2, 2, 23, 28, 5, 4, 3, 5, 24, 25, 12, 3, 2, 2, 25, 26, 7, 11, 2,
+	2, 26, 28, 5, 4, 3, 4, 27, 21, 3, 2, 2, 2, 27, 24, 3, 2, 2, 2, 28, 31,
+	3, 2, 2, 2, 29, 27, 3, 2, 2, 2, 29, 30, 3, 2, 2, 2, 30, 5, 3, 2, 2, 2,
+	31, 29, 3, 2, 2, 2, 5, 19, 27, 29,
 }
 var literalNames = []string{
-	"", "'='", "'=='", "'>'", "'>='", "'<='", "", "", "'in'", "'('", "')'",
-	"'||'", "'&&'",
+	"", "'=='", "'>'", "'>='", "'<'", "'<='", "'in'", "'('", "')'", "'||'",
+	"'&&'",
 }
 var symbolicNames = []string{
-	"", "", "", "", "", "", "EqualOP", "RelationalOP", "InOP", "LeftParen",
-	"RightParen", "OrOP", "AndOP", "Paramater", "Number", "Whitespace", "Newline",
+	"", "EqualOP", "LargerOp", "LargerEqualOp", "LessOp", "LessEqualOp", "InOP",
+	"LeftParen", "RightParen", "OrOP", "AndOP", "Paramater", "Number", "Whitespace",
+	"Newline",
 }
 
 var ruleNames = []string{
-	"start", "compareOperator", "expression",
+	"start", "expression",
 }
 
 type ConditionParser struct {
@@ -77,30 +76,27 @@ func NewConditionParser(input antlr.TokenStream) *ConditionParser {
 
 // ConditionParser tokens.
 const (
-	ConditionParserEOF          = antlr.TokenEOF
-	ConditionParserT__0         = 1
-	ConditionParserT__1         = 2
-	ConditionParserT__2         = 3
-	ConditionParserT__3         = 4
-	ConditionParserT__4         = 5
-	ConditionParserEqualOP      = 6
-	ConditionParserRelationalOP = 7
-	ConditionParserInOP         = 8
-	ConditionParserLeftParen    = 9
-	ConditionParserRightParen   = 10
-	ConditionParserOrOP         = 11
-	ConditionParserAndOP        = 12
-	ConditionParserParamater    = 13
-	ConditionParserNumber       = 14
-	ConditionParserWhitespace   = 15
-	ConditionParserNewline      = 16
+	ConditionParserEOF           = antlr.TokenEOF
+	ConditionParserEqualOP       = 1
+	ConditionParserLargerOp      = 2
+	ConditionParserLargerEqualOp = 3
+	ConditionParserLessOp        = 4
+	ConditionParserLessEqualOp   = 5
+	ConditionParserInOP          = 6
+	ConditionParserLeftParen     = 7
+	ConditionParserRightParen    = 8
+	ConditionParserOrOP          = 9
+	ConditionParserAndOP         = 10
+	ConditionParserParamater     = 11
+	ConditionParserNumber        = 12
+	ConditionParserWhitespace    = 13
+	ConditionParserNewline       = 14
 )
 
 // ConditionParser rules.
 const (
-	ConditionParserRULE_start           = 0
-	ConditionParserRULE_compareOperator = 1
-	ConditionParserRULE_expression      = 2
+	ConditionParserRULE_start      = 0
+	ConditionParserRULE_expression = 1
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -151,10 +147,6 @@ func (s *StartContext) Expression() IExpressionContext {
 	return t.(IExpressionContext)
 }
 
-func (s *StartContext) EOF() antlr.TerminalNode {
-	return s.GetToken(ConditionParserEOF, 0)
-}
-
 func (s *StartContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -197,111 +189,8 @@ func (p *ConditionParser) Start() (localctx IStartContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(6)
+		p.SetState(4)
 		p.expression(0)
-	}
-	{
-		p.SetState(7)
-		p.Match(ConditionParserEOF)
-	}
-
-	return localctx
-}
-
-// ICompareOperatorContext is an interface to support dynamic dispatch.
-type ICompareOperatorContext interface {
-	antlr.ParserRuleContext
-
-	// GetParser returns the parser.
-	GetParser() antlr.Parser
-
-	// IsCompareOperatorContext differentiates from other interfaces.
-	IsCompareOperatorContext()
-}
-
-type CompareOperatorContext struct {
-	*antlr.BaseParserRuleContext
-	parser antlr.Parser
-}
-
-func NewEmptyCompareOperatorContext() *CompareOperatorContext {
-	var p = new(CompareOperatorContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = ConditionParserRULE_compareOperator
-	return p
-}
-
-func (*CompareOperatorContext) IsCompareOperatorContext() {}
-
-func NewCompareOperatorContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *CompareOperatorContext {
-	var p = new(CompareOperatorContext)
-
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
-
-	p.parser = parser
-	p.RuleIndex = ConditionParserRULE_compareOperator
-
-	return p
-}
-
-func (s *CompareOperatorContext) GetParser() antlr.Parser { return s.parser }
-
-func (s *CompareOperatorContext) InOP() antlr.TerminalNode {
-	return s.GetToken(ConditionParserInOP, 0)
-}
-
-func (s *CompareOperatorContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *CompareOperatorContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
-	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *CompareOperatorContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(ConditionListener); ok {
-		listenerT.EnterCompareOperator(s)
-	}
-}
-
-func (s *CompareOperatorContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(ConditionListener); ok {
-		listenerT.ExitCompareOperator(s)
-	}
-}
-
-func (p *ConditionParser) CompareOperator() (localctx ICompareOperatorContext) {
-	localctx = NewCompareOperatorContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 2, ConditionParserRULE_compareOperator)
-	var _la int
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
-	p.EnterOuterAlt(localctx, 1)
-	{
-		p.SetState(9)
-		_la = p.GetTokenStream().LA(1)
-
-		if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserT__0)|(1<<ConditionParserT__1)|(1<<ConditionParserT__2)|(1<<ConditionParserT__3)|(1<<ConditionParserT__4)|(1<<ConditionParserInOP))) != 0) {
-			p.GetErrorHandler().RecoverInline(p)
-		} else {
-			p.GetErrorHandler().ReportMatch(p)
-			p.Consume()
-		}
 	}
 
 	return localctx
@@ -345,11 +234,132 @@ func NewExpressionContext(parser antlr.Parser, parent antlr.ParserRuleContext, i
 
 func (s *ExpressionContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *ExpressionContext) LeftParen() antlr.TerminalNode {
-	return s.GetToken(ConditionParserLeftParen, 0)
+func (s *ExpressionContext) CopyFrom(ctx *ExpressionContext) {
+	s.BaseParserRuleContext.CopyFrom(ctx.BaseParserRuleContext)
 }
 
-func (s *ExpressionContext) AllExpression() []IExpressionContext {
+func (s *ExpressionContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ExpressionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+type CompareContext struct {
+	*ExpressionContext
+	left  antlr.Token
+	op    antlr.Token
+	right antlr.Token
+}
+
+func NewCompareContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *CompareContext {
+	var p = new(CompareContext)
+
+	p.ExpressionContext = NewEmptyExpressionContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*ExpressionContext))
+
+	return p
+}
+
+func (s *CompareContext) GetLeft() antlr.Token { return s.left }
+
+func (s *CompareContext) GetOp() antlr.Token { return s.op }
+
+func (s *CompareContext) GetRight() antlr.Token { return s.right }
+
+func (s *CompareContext) SetLeft(v antlr.Token) { s.left = v }
+
+func (s *CompareContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *CompareContext) SetRight(v antlr.Token) { s.right = v }
+
+func (s *CompareContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *CompareContext) AllParamater() []antlr.TerminalNode {
+	return s.GetTokens(ConditionParserParamater)
+}
+
+func (s *CompareContext) Paramater(i int) antlr.TerminalNode {
+	return s.GetToken(ConditionParserParamater, i)
+}
+
+func (s *CompareContext) Number() antlr.TerminalNode {
+	return s.GetToken(ConditionParserNumber, 0)
+}
+
+func (s *CompareContext) EqualOP() antlr.TerminalNode {
+	return s.GetToken(ConditionParserEqualOP, 0)
+}
+
+func (s *CompareContext) LargerOp() antlr.TerminalNode {
+	return s.GetToken(ConditionParserLargerOp, 0)
+}
+
+func (s *CompareContext) LargerEqualOp() antlr.TerminalNode {
+	return s.GetToken(ConditionParserLargerEqualOp, 0)
+}
+
+func (s *CompareContext) LessOp() antlr.TerminalNode {
+	return s.GetToken(ConditionParserLessOp, 0)
+}
+
+func (s *CompareContext) LessEqualOp() antlr.TerminalNode {
+	return s.GetToken(ConditionParserLessEqualOp, 0)
+}
+
+func (s *CompareContext) InOP() antlr.TerminalNode {
+	return s.GetToken(ConditionParserInOP, 0)
+}
+
+func (s *CompareContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.EnterCompare(s)
+	}
+}
+
+func (s *CompareContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.ExitCompare(s)
+	}
+}
+
+type OrCompareContext struct {
+	*ExpressionContext
+	left  IExpressionContext
+	right IExpressionContext
+}
+
+func NewOrCompareContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *OrCompareContext {
+	var p = new(OrCompareContext)
+
+	p.ExpressionContext = NewEmptyExpressionContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*ExpressionContext))
+
+	return p
+}
+
+func (s *OrCompareContext) GetLeft() IExpressionContext { return s.left }
+
+func (s *OrCompareContext) GetRight() IExpressionContext { return s.right }
+
+func (s *OrCompareContext) SetLeft(v IExpressionContext) { s.left = v }
+
+func (s *OrCompareContext) SetRight(v IExpressionContext) { s.right = v }
+
+func (s *OrCompareContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *OrCompareContext) OrOP() antlr.TerminalNode {
+	return s.GetToken(ConditionParserOrOP, 0)
+}
+
+func (s *OrCompareContext) AllExpression() []IExpressionContext {
 	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IExpressionContext)(nil)).Elem())
 	var tst = make([]IExpressionContext, len(ts))
 
@@ -362,7 +372,7 @@ func (s *ExpressionContext) AllExpression() []IExpressionContext {
 	return tst
 }
 
-func (s *ExpressionContext) Expression(i int) IExpressionContext {
+func (s *OrCompareContext) Expression(i int) IExpressionContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpressionContext)(nil)).Elem(), i)
 
 	if t == nil {
@@ -372,57 +382,130 @@ func (s *ExpressionContext) Expression(i int) IExpressionContext {
 	return t.(IExpressionContext)
 }
 
-func (s *ExpressionContext) RightParen() antlr.TerminalNode {
-	return s.GetToken(ConditionParserRightParen, 0)
+func (s *OrCompareContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.EnterOrCompare(s)
+	}
 }
 
-func (s *ExpressionContext) AllParamater() []antlr.TerminalNode {
-	return s.GetTokens(ConditionParserParamater)
+func (s *OrCompareContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.ExitOrCompare(s)
+	}
 }
 
-func (s *ExpressionContext) Paramater(i int) antlr.TerminalNode {
-	return s.GetToken(ConditionParserParamater, i)
+type ParensExpressionContext struct {
+	*ExpressionContext
 }
 
-func (s *ExpressionContext) CompareOperator() ICompareOperatorContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICompareOperatorContext)(nil)).Elem(), 0)
+func NewParensExpressionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *ParensExpressionContext {
+	var p = new(ParensExpressionContext)
+
+	p.ExpressionContext = NewEmptyExpressionContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*ExpressionContext))
+
+	return p
+}
+
+func (s *ParensExpressionContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *ParensExpressionContext) LeftParen() antlr.TerminalNode {
+	return s.GetToken(ConditionParserLeftParen, 0)
+}
+
+func (s *ParensExpressionContext) Expression() IExpressionContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpressionContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(ICompareOperatorContext)
+	return t.(IExpressionContext)
 }
 
-func (s *ExpressionContext) Number() antlr.TerminalNode {
-	return s.GetToken(ConditionParserNumber, 0)
+func (s *ParensExpressionContext) RightParen() antlr.TerminalNode {
+	return s.GetToken(ConditionParserRightParen, 0)
 }
 
-func (s *ExpressionContext) OrOP() antlr.TerminalNode {
-	return s.GetToken(ConditionParserOrOP, 0)
-}
-
-func (s *ExpressionContext) AndOP() antlr.TerminalNode {
-	return s.GetToken(ConditionParserAndOP, 0)
-}
-
-func (s *ExpressionContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *ExpressionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
-	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *ExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *ParensExpressionContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(ConditionListener); ok {
-		listenerT.EnterExpression(s)
+		listenerT.EnterParensExpression(s)
 	}
 }
 
-func (s *ExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *ParensExpressionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(ConditionListener); ok {
-		listenerT.ExitExpression(s)
+		listenerT.ExitParensExpression(s)
+	}
+}
+
+type AndCompareContext struct {
+	*ExpressionContext
+	left  IExpressionContext
+	right IExpressionContext
+}
+
+func NewAndCompareContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *AndCompareContext {
+	var p = new(AndCompareContext)
+
+	p.ExpressionContext = NewEmptyExpressionContext()
+	p.parser = parser
+	p.CopyFrom(ctx.(*ExpressionContext))
+
+	return p
+}
+
+func (s *AndCompareContext) GetLeft() IExpressionContext { return s.left }
+
+func (s *AndCompareContext) GetRight() IExpressionContext { return s.right }
+
+func (s *AndCompareContext) SetLeft(v IExpressionContext) { s.left = v }
+
+func (s *AndCompareContext) SetRight(v IExpressionContext) { s.right = v }
+
+func (s *AndCompareContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *AndCompareContext) AndOP() antlr.TerminalNode {
+	return s.GetToken(ConditionParserAndOP, 0)
+}
+
+func (s *AndCompareContext) AllExpression() []IExpressionContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IExpressionContext)(nil)).Elem())
+	var tst = make([]IExpressionContext, len(ts))
+
+	for i, t := range ts {
+		if t != nil {
+			tst[i] = t.(IExpressionContext)
+		}
+	}
+
+	return tst
+}
+
+func (s *AndCompareContext) Expression(i int) IExpressionContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IExpressionContext)(nil)).Elem(), i)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExpressionContext)
+}
+
+func (s *AndCompareContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.EnterAndCompare(s)
+	}
+}
+
+func (s *AndCompareContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(ConditionListener); ok {
+		listenerT.ExitAndCompare(s)
 	}
 }
 
@@ -436,8 +519,9 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 	localctx = NewExpressionContext(p, p.GetParserRuleContext(), _parentState)
 	var _prevctx IExpressionContext = localctx
 	var _ antlr.ParserRuleContext = _prevctx // TODO: To prevent unused variable warning.
-	_startState := 4
-	p.EnterRecursionRule(localctx, 4, ConditionParserRULE_expression, _p)
+	_startState := 2
+	p.EnterRecursionRule(localctx, 2, ConditionParserRULE_expression, _p)
+	var _la int
 
 	defer func() {
 		p.UnrollRecursionContexts(_parentctx)
@@ -458,54 +542,104 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(24)
+	p.SetState(17)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 0, p.GetParserRuleContext()) {
 	case 1:
+		localctx = NewParensExpressionContext(p, localctx)
+		p.SetParserRuleContext(localctx)
+		_prevctx = localctx
+
 		{
-			p.SetState(12)
+			p.SetState(7)
 			p.Match(ConditionParserLeftParen)
 		}
 		{
-			p.SetState(13)
+			p.SetState(8)
 			p.expression(0)
 		}
 		{
-			p.SetState(14)
+			p.SetState(9)
 			p.Match(ConditionParserRightParen)
 		}
 
 	case 2:
+		localctx = NewCompareContext(p, localctx)
+		p.SetParserRuleContext(localctx)
+		_prevctx = localctx
 		{
-			p.SetState(16)
-			p.Match(ConditionParserParamater)
+			p.SetState(11)
+
+			var _m = p.Match(ConditionParserParamater)
+
+			localctx.(*CompareContext).left = _m
 		}
 		{
-			p.SetState(17)
-			p.CompareOperator()
+			p.SetState(12)
+
+			var _lt = p.GetTokenStream().LT(1)
+
+			localctx.(*CompareContext).op = _lt
+
+			_la = p.GetTokenStream().LA(1)
+
+			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
+				var _ri = p.GetErrorHandler().RecoverInline(p)
+
+				localctx.(*CompareContext).op = _ri
+			} else {
+				p.GetErrorHandler().ReportMatch(p)
+				p.Consume()
+			}
 		}
 		{
-			p.SetState(18)
-			p.Match(ConditionParserParamater)
+			p.SetState(13)
+
+			var _m = p.Match(ConditionParserNumber)
+
+			localctx.(*CompareContext).right = _m
 		}
 
 	case 3:
+		localctx = NewCompareContext(p, localctx)
+		p.SetParserRuleContext(localctx)
+		_prevctx = localctx
 		{
-			p.SetState(20)
-			p.Match(ConditionParserParamater)
+			p.SetState(14)
+
+			var _m = p.Match(ConditionParserParamater)
+
+			localctx.(*CompareContext).left = _m
 		}
 		{
-			p.SetState(21)
-			p.CompareOperator()
+			p.SetState(15)
+
+			var _lt = p.GetTokenStream().LT(1)
+
+			localctx.(*CompareContext).op = _lt
+
+			_la = p.GetTokenStream().LA(1)
+
+			if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<ConditionParserEqualOP)|(1<<ConditionParserLargerOp)|(1<<ConditionParserLargerEqualOp)|(1<<ConditionParserLessOp)|(1<<ConditionParserLessEqualOp)|(1<<ConditionParserInOP))) != 0) {
+				var _ri = p.GetErrorHandler().RecoverInline(p)
+
+				localctx.(*CompareContext).op = _ri
+			} else {
+				p.GetErrorHandler().ReportMatch(p)
+				p.Consume()
+			}
 		}
 		{
-			p.SetState(22)
-			p.Match(ConditionParserNumber)
+			p.SetState(16)
+
+			var _m = p.Match(ConditionParserParamater)
+
+			localctx.(*CompareContext).right = _m
 		}
 
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(34)
+	p.SetState(27)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 
@@ -515,47 +649,57 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(32)
+			p.SetState(25)
 			p.GetErrorHandler().Sync(p)
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext()) {
 			case 1:
-				localctx = NewExpressionContext(p, _parentctx, _parentState)
+				localctx = NewAndCompareContext(p, NewExpressionContext(p, _parentctx, _parentState))
+				localctx.(*AndCompareContext).left = _prevctx
+
 				p.PushNewRecursionContext(localctx, _startState, ConditionParserRULE_expression)
-				p.SetState(26)
+				p.SetState(19)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 2)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 2)", ""))
 				}
 				{
-					p.SetState(27)
-					p.Match(ConditionParserOrOP)
-				}
-				{
-					p.SetState(28)
-					p.expression(6)
-				}
-
-			case 2:
-				localctx = NewExpressionContext(p, _parentctx, _parentState)
-				p.PushNewRecursionContext(localctx, _startState, ConditionParserRULE_expression)
-				p.SetState(29)
-
-				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
-				}
-				{
-					p.SetState(30)
+					p.SetState(20)
 					p.Match(ConditionParserAndOP)
 				}
 				{
-					p.SetState(31)
-					p.expression(5)
+					p.SetState(21)
+
+					var _x = p.expression(3)
+
+					localctx.(*AndCompareContext).right = _x
+				}
+
+			case 2:
+				localctx = NewOrCompareContext(p, NewExpressionContext(p, _parentctx, _parentState))
+				localctx.(*OrCompareContext).left = _prevctx
+
+				p.PushNewRecursionContext(localctx, _startState, ConditionParserRULE_expression)
+				p.SetState(22)
+
+				if !(p.Precpred(p.GetParserRuleContext(), 1)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 1)", ""))
+				}
+				{
+					p.SetState(23)
+					p.Match(ConditionParserOrOP)
+				}
+				{
+					p.SetState(24)
+
+					var _x = p.expression(2)
+
+					localctx.(*OrCompareContext).right = _x
 				}
 
 			}
 
 		}
-		p.SetState(36)
+		p.SetState(29)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext())
 	}
@@ -565,7 +709,7 @@ func (p *ConditionParser) expression(_p int) (localctx IExpressionContext) {
 
 func (p *ConditionParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex int) bool {
 	switch ruleIndex {
-	case 2:
+	case 1:
 		var t *ExpressionContext = nil
 		if localctx != nil {
 			t = localctx.(*ExpressionContext)
@@ -580,10 +724,10 @@ func (p *ConditionParser) Sempred(localctx antlr.RuleContext, ruleIndex, predInd
 func (p *ConditionParser) Expression_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 5)
+		return p.Precpred(p.GetParserRuleContext(), 2)
 
 	case 1:
-		return p.Precpred(p.GetParserRuleContext(), 4)
+		return p.Precpred(p.GetParserRuleContext(), 1)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))

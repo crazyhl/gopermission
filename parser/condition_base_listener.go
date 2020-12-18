@@ -27,14 +27,26 @@ func (s *BaseConditionListener) EnterStart(ctx *StartContext) {}
 // ExitStart is called when production start is exited.
 func (s *BaseConditionListener) ExitStart(ctx *StartContext) {}
 
-// EnterCompareOperator is called when production compareOperator is entered.
-func (s *BaseConditionListener) EnterCompareOperator(ctx *CompareOperatorContext) {}
+// EnterCompare is called when production compare is entered.
+func (s *BaseConditionListener) EnterCompare(ctx *CompareContext) {}
 
-// ExitCompareOperator is called when production compareOperator is exited.
-func (s *BaseConditionListener) ExitCompareOperator(ctx *CompareOperatorContext) {}
+// ExitCompare is called when production compare is exited.
+func (s *BaseConditionListener) ExitCompare(ctx *CompareContext) {}
 
-// EnterExpression is called when production expression is entered.
-func (s *BaseConditionListener) EnterExpression(ctx *ExpressionContext) {}
+// EnterOrCompare is called when production orCompare is entered.
+func (s *BaseConditionListener) EnterOrCompare(ctx *OrCompareContext) {}
 
-// ExitExpression is called when production expression is exited.
-func (s *BaseConditionListener) ExitExpression(ctx *ExpressionContext) {}
+// ExitOrCompare is called when production orCompare is exited.
+func (s *BaseConditionListener) ExitOrCompare(ctx *OrCompareContext) {}
+
+// EnterParensExpression is called when production parensExpression is entered.
+func (s *BaseConditionListener) EnterParensExpression(ctx *ParensExpressionContext) {}
+
+// ExitParensExpression is called when production parensExpression is exited.
+func (s *BaseConditionListener) ExitParensExpression(ctx *ParensExpressionContext) {}
+
+// EnterAndCompare is called when production andCompare is entered.
+func (s *BaseConditionListener) EnterAndCompare(ctx *AndCompareContext) {}
+
+// ExitAndCompare is called when production andCompare is exited.
+func (s *BaseConditionListener) ExitAndCompare(ctx *AndCompareContext) {}

@@ -11,18 +11,30 @@ type ConditionListener interface {
 	// EnterStart is called when entering the start production.
 	EnterStart(c *StartContext)
 
-	// EnterCompareOperator is called when entering the compareOperator production.
-	EnterCompareOperator(c *CompareOperatorContext)
+	// EnterCompare is called when entering the compare production.
+	EnterCompare(c *CompareContext)
 
-	// EnterExpression is called when entering the expression production.
-	EnterExpression(c *ExpressionContext)
+	// EnterOrCompare is called when entering the orCompare production.
+	EnterOrCompare(c *OrCompareContext)
+
+	// EnterParensExpression is called when entering the parensExpression production.
+	EnterParensExpression(c *ParensExpressionContext)
+
+	// EnterAndCompare is called when entering the andCompare production.
+	EnterAndCompare(c *AndCompareContext)
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
-	// ExitCompareOperator is called when exiting the compareOperator production.
-	ExitCompareOperator(c *CompareOperatorContext)
+	// ExitCompare is called when exiting the compare production.
+	ExitCompare(c *CompareContext)
 
-	// ExitExpression is called when exiting the expression production.
-	ExitExpression(c *ExpressionContext)
+	// ExitOrCompare is called when exiting the orCompare production.
+	ExitOrCompare(c *OrCompareContext)
+
+	// ExitParensExpression is called when exiting the parensExpression production.
+	ExitParensExpression(c *ParensExpressionContext)
+
+	// ExitAndCompare is called when exiting the andCompare production.
+	ExitAndCompare(c *AndCompareContext)
 }
