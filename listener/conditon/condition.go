@@ -65,15 +65,44 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	case parser.ConditionLexerLargerOp:
 		// >
 		fmt.Println("大于比较")
+		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+		if leftErr != nil || rightErr != nil {
+			l.push(false)
+		} else {
+			l.push(leftNumber > rightNumber)
+		}
 	case parser.ConditionLexerLargerEqualOp:
 		// >=
 		fmt.Println("大于等于比较")
+		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+		if leftErr != nil || rightErr != nil {
+			l.push(false)
+		} else {
+			l.push(leftNumber >= rightNumber)
+		}
 	case parser.ConditionLexerLessOp:
 		// <
 		fmt.Println("小于比较")
+		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+		if leftErr != nil || rightErr != nil {
+			l.push(false)
+		} else {
+			l.push(leftNumber < rightNumber)
+		}
 	case parser.ConditionLexerLessEqualOp:
 		// <=
 		fmt.Println("小于等于比较")
+		fmt.Println("大于等于比较")
+		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+		if leftErr != nil || rightErr != nil {
+			l.push(false)
+		} else {
+			l.push(leftNumber <= rightNumber)
+		}
 	case parser.ConditionLexerInOP:
 		fmt.Println("in比较")
 	}

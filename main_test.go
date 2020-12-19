@@ -271,6 +271,58 @@ func Test_Condition_Deep_Equal_Check(t *testing.T) {
 	t.Log(paramsArr)
 }
 
+func Test_Condition_Larger_Check(t *testing.T) {
+	condition := "model.Uid > user.Id"
+	//condition := "model.Uid > 3"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 456
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_Larger_Equal_Check(t *testing.T) {
+	condition := "model.Uid >= user.Id"
+	//condition := "model.Uid > 3"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 456
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_Less_Check(t *testing.T) {
+	condition := "model.Uid < user.Id"
+	//condition := "model.Uid > 3"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 46
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_Less_Equal_Check(t *testing.T) {
+	condition := "model.Uid <= user.Id"
+	//condition := "model.Uid > 3"
+	modelData := make(map[interface{}]interface{})
+	userData := make(map[interface{}]interface{})
+	modelData["Uid"] = 467
+	userData["Id"] = "456"
+	fmt.Println(modelData)
+	fmt.Println(userData)
+	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
 // --------------------- private function -----------------------------
 
 func register() {
