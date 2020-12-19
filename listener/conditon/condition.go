@@ -3,7 +3,6 @@ package conditon
 import (
 	"fmt"
 	"github.com/crazyhl/gopermission/v1/parser"
-	"reflect"
 	"strconv"
 	"strings"
 )
@@ -70,22 +69,16 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 }
 
 // 这个是两个条件的或运算
-func (l *ConditionListener) ExitOrCompare(c *parser.OrCompareContext) {
-	fmt.Println("-------------Or 比较运算--------------")
-	fmt.Println(c.GetChildCount())
-	fmt.Println(c.GetText())
-	fmt.Println(c.GetLeft().GetText())
-	fmt.Println(c.GetRight().GetText())
-	fmt.Println("-------------Or 比较运算--------------")
+func (l *ConditionListener) ExitOrCompare(_ *parser.OrCompareContext) {
+	bool1 := l.pop()
+	bool2 := l.pop()
+	l.push(bool1 || bool2)
 }
 
-func (l *ConditionListener) ExitAndCompare(c *parser.AndCompareContext) {
-	fmt.Println("-------------And 比较运算--------------")
-	fmt.Println(c.GetChildCount())
-	fmt.Println(c.GetText())
-	fmt.Println(c.GetLeft().GetText())
-	fmt.Println(c.GetRight().GetText())
-	fmt.Println("-------------And 比较运算--------------")
+func (l *ConditionListener) ExitAndCompare(_ *parser.AndCompareContext) {
+	bool1 := l.pop()
+	bool2 := l.pop()
+	l.push(bool1 && bool2)
 }
 
 // ---------------------- private function ------------------------
@@ -213,9 +206,6 @@ func (l *ConditionListener) compareIn(leftText string, leftValue interface{}, ri
 	} else {
 		leftStr := fmt.Sprint(leftValue)
 		checkFieldName := paramArr[paramsLen-1]
-		fmt.Println(leftStr)
-		fmt.Println(checkFieldName)
-		fmt.Println(reflect.TypeOf(rightValue))
 
 		switch rightValue.(type) {
 		case []interface{}:

@@ -349,6 +349,91 @@ func Test_Condition_In_Check(t *testing.T) {
 	t.Log(result)
 }
 
+func Test_Condition_Or_Check(t *testing.T) {
+	condition := "model.Name in user.Categories || model.Uid == 3"
+	//condition := "model.Uid > 3"
+	modelData := make(map[string]interface{})
+
+	modelData["Uid"] = 1
+	modelData["Name"] = "c1"
+	categories := make([]Cateogory, 0)
+	categories = append(categories, Cateogory{
+		Name: "c1",
+		Id:   1,
+	})
+	categories = append(categories, Cateogory{
+		Name: "c2",
+		Id:   2,
+	})
+	user := User{
+		Username:   "aaa",
+		Categories: categories,
+	}
+	userMap := structs.Map(user)
+	fmt.Println(userMap)
+
+	fmt.Println(modelData)
+	result := conditon.GetConditionResult(condition, modelData, userMap)
+	t.Log(result)
+}
+
+func Test_Condition_And_Check(t *testing.T) {
+	condition := "model.Name in user.Categories && model.Uid == 2"
+	//condition := "model.Uid > 3"
+	modelData := make(map[string]interface{})
+
+	modelData["Uid"] = 1
+	modelData["Name"] = "c1"
+	categories := make([]Cateogory, 0)
+	categories = append(categories, Cateogory{
+		Name: "c1",
+		Id:   1,
+	})
+	categories = append(categories, Cateogory{
+		Name: "c2",
+		Id:   2,
+	})
+	user := User{
+		Username:   "aaa",
+		Categories: categories,
+	}
+	userMap := structs.Map(user)
+	fmt.Println(userMap)
+
+	fmt.Println(modelData)
+	result := conditon.GetConditionResult(condition, modelData, userMap)
+	t.Log(result)
+}
+
+func Test_Condition_Mix_Check(t *testing.T) {
+	condition := "(model.Name in user.Categories && model.Uid == 1) || model.Id == 15"
+	//condition := "model.Uid > 3"
+	modelData := make(map[string]interface{})
+
+	modelData["Uid"] = 1
+	modelData["Id"] = 5
+	modelData["Name"] = "c1"
+	categories := make([]Cateogory, 0)
+	categories = append(categories, Cateogory{
+		Name: "c1",
+		Id:   1,
+	})
+	categories = append(categories, Cateogory{
+		Name: "c2",
+		Id:   2,
+	})
+	user := User{
+		Username:   "aaa",
+		Categories: categories,
+	}
+	userMap := structs.Map(user)
+	fmt.Println(userMap)
+
+	fmt.Println(modelData)
+	result := conditon.GetConditionResult(condition, modelData, userMap)
+	t.Log(result)
+}
+
 // --------------------- private function -----------------------------
 
 func register() {
