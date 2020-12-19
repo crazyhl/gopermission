@@ -3,6 +3,7 @@ package conditon
 import (
 	"fmt"
 	"github.com/crazyhl/gopermission/v1/parser"
+	"reflect"
 	"strconv"
 	"strings"
 )
@@ -10,8 +11,8 @@ import (
 type ConditionListener struct {
 	*parser.BaseConditionListener
 
-	ModelData map[interface{}]interface{}
-	UserData  map[interface{}]interface{}
+	ModelData map[string]interface{}
+	UserData  map[string]interface{}
 
 	// 存放结果的栈
 	stack []bool
@@ -52,19 +53,16 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	switch c.GetOp().GetTokenType() {
 	case parser.ConditionLexerEqualOP:
 		// ==
-		fmt.Println("等于比较")
 		leftStr := fmt.Sprint(leftValue)
 		rightStr := fmt.Sprint(rightValue)
 		l.push(leftStr == rightStr)
 	case parser.ConditionLexerNotEqualOP:
 		// !=
-		fmt.Println("不等于比较")
 		leftStr := fmt.Sprint(leftValue)
 		rightStr := fmt.Sprint(rightValue)
 		l.push(leftStr != rightStr)
 	case parser.ConditionLexerLargerOp:
 		// >
-		fmt.Println("大于比较")
 		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
 		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
 		if leftErr != nil || rightErr != nil {
@@ -74,7 +72,6 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 		}
 	case parser.ConditionLexerLargerEqualOp:
 		// >=
-		fmt.Println("大于等于比较")
 		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
 		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
 		if leftErr != nil || rightErr != nil {
@@ -84,7 +81,6 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 		}
 	case parser.ConditionLexerLessOp:
 		// <
-		fmt.Println("小于比较")
 		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
 		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
 		if leftErr != nil || rightErr != nil {
@@ -94,8 +90,6 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 		}
 	case parser.ConditionLexerLessEqualOp:
 		// <=
-		fmt.Println("小于等于比较")
-		fmt.Println("大于等于比较")
 		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
 		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
 		if leftErr != nil || rightErr != nil {
@@ -104,7 +98,35 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 			l.push(leftNumber <= rightNumber)
 		}
 	case parser.ConditionLexerInOP:
+		// in
 		fmt.Println("in比较")
+		paramArr := l.getParamArr(c.GetLeft().GetText())
+		paramsLen := len(paramArr)
+		if paramsLen <= 1 {
+			l.push(false)
+		} else {
+			leftStr := fmt.Sprint(leftValue)
+			checkFieldName := paramArr[paramsLen-1]
+			fmt.Println(leftStr)
+			fmt.Println(checkFieldName)
+			fmt.Println(reflect.TypeOf(rightValue))
+
+			switch rightValue.(type) {
+			case []interface{}:
+				rightValueSlice := rightValue.([]interface{})
+				for _, v := range rightValueSlice {
+					valueMap := v.(map[string]interface{})
+					if leftStr == fmt.Sprint(valueMap[checkFieldName]) {
+						l.push(true)
+						return
+					} else {
+						l.push(false)
+					}
+				}
+			default:
+				l.push(false)
+			}
+		}
 	}
 	fmt.Println("-------------比较运算--------------")
 }
@@ -148,8 +170,12 @@ func (l *ConditionListener) pop() bool {
 	return result
 }
 
+func (l *ConditionListener) getParamArr(paramStr string) []string {
+	return strings.Split(paramStr, ".")
+}
+
 func (l *ConditionListener) getValue(paramStr string) interface{} {
-	paramsArr := strings.Split(paramStr, ".")
+	paramsArr := l.getParamArr(paramStr)
 	paramsLen := len(paramsArr)
 	if paramsLen < 1 {
 		return nil
@@ -163,7 +189,7 @@ func (l *ConditionListener) getValue(paramStr string) interface{} {
 		return intValue
 	}
 	modelType := paramsArr[0]
-	valueData := make(map[interface{}]interface{})
+	valueData := make(map[string]interface{})
 	switch modelType {
 	case "model":
 		// 从模型获取
@@ -183,7 +209,7 @@ func (l *ConditionListener) getValue(paramStr string) interface{} {
 		if valueData[param] == nil {
 			return nil
 		}
-		valueData = valueData[param].(map[interface{}]interface{})
+		valueData = valueData[param].(map[string]interface{})
 	}
 
 	return nil

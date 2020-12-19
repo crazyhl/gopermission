@@ -7,7 +7,7 @@ import (
 )
 
 // 获取条件的结果
-func GetConditionResult(conditionStr string, modelData map[interface{}]interface{}, userData map[interface{}]interface{}) bool {
+func GetConditionResult(conditionStr string, modelData map[string]interface{}, userData map[string]interface{}) bool {
 	conditionStr = strings.Trim(conditionStr, " ")
 	if conditionStr == "" {
 		// 如果条件为空，返回 true

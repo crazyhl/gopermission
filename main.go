@@ -44,7 +44,7 @@ func GetPermission(path string) []models.Permission {
 }
 
 // 权限检测
-func HasPermission(user map[interface{}]interface{}, path string, uri string, userPermissions []models.Permission) bool {
+func HasPermission(user map[string]interface{}, path string, uri string, userPermissions []models.Permission) bool {
 	bindPermissions := GetPermission(path)
 	// 如果 路径没有绑定任何权限，那么就直接通过
 	if len(bindPermissions) == 0 {

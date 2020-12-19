@@ -230,8 +230,8 @@ func Test_Struct_To_Map(t *testing.T) {
 func Test_Condition_Equal_Check(t *testing.T) {
 	//condition := "model.Uid == user.Id"
 	condition := "model.Uid == 3"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 456
 	userData["Id"] = "456"
 	fmt.Println(modelData)
@@ -242,8 +242,8 @@ func Test_Condition_Equal_Check(t *testing.T) {
 
 func Test_Condition_Not_Equal_Check(t *testing.T) {
 	condition := "model.Uid != user.Id"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 123
 	userData["Id"] = "456"
 	fmt.Println(modelData)
@@ -254,10 +254,10 @@ func Test_Condition_Not_Equal_Check(t *testing.T) {
 
 func Test_Condition_Deep_Equal_Check(t *testing.T) {
 	condition := "model.Article.Uid == user.Id"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 123
-	articleMap := make(map[interface{}]interface{})
+	articleMap := make(map[string]interface{})
 	articleMap["Uid"] = 456
 	modelData["Article"] = articleMap
 	userData["Id"] = "456"
@@ -274,8 +274,8 @@ func Test_Condition_Deep_Equal_Check(t *testing.T) {
 func Test_Condition_Larger_Check(t *testing.T) {
 	condition := "model.Uid > user.Id"
 	//condition := "model.Uid > 3"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 456
 	userData["Id"] = "456"
 	fmt.Println(modelData)
@@ -287,8 +287,8 @@ func Test_Condition_Larger_Check(t *testing.T) {
 func Test_Condition_Larger_Equal_Check(t *testing.T) {
 	condition := "model.Uid >= user.Id"
 	//condition := "model.Uid > 3"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 456
 	userData["Id"] = "456"
 	fmt.Println(modelData)
@@ -300,8 +300,8 @@ func Test_Condition_Larger_Equal_Check(t *testing.T) {
 func Test_Condition_Less_Check(t *testing.T) {
 	condition := "model.Uid < user.Id"
 	//condition := "model.Uid > 3"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
 	modelData["Uid"] = 46
 	userData["Id"] = "456"
 	fmt.Println(modelData)
@@ -313,13 +313,40 @@ func Test_Condition_Less_Check(t *testing.T) {
 func Test_Condition_Less_Equal_Check(t *testing.T) {
 	condition := "model.Uid <= user.Id"
 	//condition := "model.Uid > 3"
-	modelData := make(map[interface{}]interface{})
-	userData := make(map[interface{}]interface{})
-	modelData["Uid"] = 467
+	modelData := make(map[string]interface{})
+	userData := make(map[string]interface{})
+	modelData["Uid"] = 46
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
 	result := conditon.GetConditionResult(condition, modelData, userData)
+	t.Log(result)
+}
+
+func Test_Condition_In_Check(t *testing.T) {
+	condition := "model.Id in user.Categories"
+	//condition := "model.Uid > 3"
+	modelData := make(map[string]interface{})
+
+	modelData["Id"] = 3
+	categories := make([]Cateogory, 0)
+	categories = append(categories, Cateogory{
+		Name: "c1",
+		Id:   1,
+	})
+	categories = append(categories, Cateogory{
+		Name: "c2",
+		Id:   2,
+	})
+	user := User{
+		Username:   "aaa",
+		Categories: categories,
+	}
+	userMap := structs.Map(user)
+	fmt.Println(userMap)
+
+	fmt.Println(modelData)
+	result := conditon.GetConditionResult(condition, modelData, userMap)
 	t.Log(result)
 }
 
@@ -334,7 +361,7 @@ func register() {
 		Database: "finance",
 		Charset:  "utf8mb4",
 		Location: "Asia%2fShanghai",
-	}, func(modelName string, getModelFieldName string, paramValue string, condition string, user map[interface{}]interface{}) bool {
+	}, func(modelName string, getModelFieldName string, paramValue string, condition string, user map[string]interface{}) bool {
 		return true
 	})
 }
