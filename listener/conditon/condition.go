@@ -37,12 +37,6 @@ func (l *ConditionListener) GetResult() bool {
 
 // 这个就是单纯的比较
 func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
-	fmt.Println("-------------比较运算--------------")
-	fmt.Println(c.GetOp().GetText())
-	fmt.Println(c.GetChildCount())
-	fmt.Println(c.GetText())
-	fmt.Println(c.GetLeft().GetText())
-	fmt.Println(c.GetRight().GetText())
 	leftValue := l.getValue(c.GetLeft().GetText())
 	rightValue := l.getValue(c.GetRight().GetText())
 	// 如果两个选项有一个为空就返回空
@@ -53,82 +47,26 @@ func (l *ConditionListener) ExitCompare(c *parser.CompareContext) {
 	switch c.GetOp().GetTokenType() {
 	case parser.ConditionLexerEqualOP:
 		// ==
-		leftStr := fmt.Sprint(leftValue)
-		rightStr := fmt.Sprint(rightValue)
-		l.push(leftStr == rightStr)
+		l.compareEqual(leftValue, rightValue)
 	case parser.ConditionLexerNotEqualOP:
 		// !=
-		leftStr := fmt.Sprint(leftValue)
-		rightStr := fmt.Sprint(rightValue)
-		l.push(leftStr != rightStr)
+		l.compareNotEqual(leftValue, rightValue)
 	case parser.ConditionLexerLargerOp:
 		// >
-		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
-		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
-		if leftErr != nil || rightErr != nil {
-			l.push(false)
-		} else {
-			l.push(leftNumber > rightNumber)
-		}
+		l.compareLarger(leftValue, rightValue)
 	case parser.ConditionLexerLargerEqualOp:
 		// >=
-		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
-		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
-		if leftErr != nil || rightErr != nil {
-			l.push(false)
-		} else {
-			l.push(leftNumber >= rightNumber)
-		}
+		l.compareLargerEqual(leftValue, rightValue)
 	case parser.ConditionLexerLessOp:
 		// <
-		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
-		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
-		if leftErr != nil || rightErr != nil {
-			l.push(false)
-		} else {
-			l.push(leftNumber < rightNumber)
-		}
+		l.compareLess(leftValue, rightValue)
 	case parser.ConditionLexerLessEqualOp:
 		// <=
-		leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
-		rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
-		if leftErr != nil || rightErr != nil {
-			l.push(false)
-		} else {
-			l.push(leftNumber <= rightNumber)
-		}
+		l.compareLessEqual(leftValue, rightValue)
 	case parser.ConditionLexerInOP:
 		// in
-		fmt.Println("in比较")
-		paramArr := l.getParamArr(c.GetLeft().GetText())
-		paramsLen := len(paramArr)
-		if paramsLen <= 1 {
-			l.push(false)
-		} else {
-			leftStr := fmt.Sprint(leftValue)
-			checkFieldName := paramArr[paramsLen-1]
-			fmt.Println(leftStr)
-			fmt.Println(checkFieldName)
-			fmt.Println(reflect.TypeOf(rightValue))
-
-			switch rightValue.(type) {
-			case []interface{}:
-				rightValueSlice := rightValue.([]interface{})
-				for _, v := range rightValueSlice {
-					valueMap := v.(map[string]interface{})
-					if leftStr == fmt.Sprint(valueMap[checkFieldName]) {
-						l.push(true)
-						return
-					} else {
-						l.push(false)
-					}
-				}
-			default:
-				l.push(false)
-			}
-		}
+		l.compareIn(c.GetLeft().GetText(), leftValue, rightValue)
 	}
-	fmt.Println("-------------比较运算--------------")
 }
 
 // 这个是两个条件的或运算
@@ -213,4 +151,86 @@ func (l *ConditionListener) getValue(paramStr string) interface{} {
 	}
 
 	return nil
+}
+
+func (l *ConditionListener) compareEqual(leftValue interface{}, rightValue interface{}) {
+	leftStr := fmt.Sprint(leftValue)
+	rightStr := fmt.Sprint(rightValue)
+	l.push(leftStr == rightStr)
+}
+
+func (l *ConditionListener) compareNotEqual(leftValue interface{}, rightValue interface{}) {
+	leftStr := fmt.Sprint(leftValue)
+	rightStr := fmt.Sprint(rightValue)
+	l.push(leftStr != rightStr)
+}
+
+func (l *ConditionListener) compareLarger(leftValue interface{}, rightValue interface{}) {
+	leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+	rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+	if leftErr != nil || rightErr != nil {
+		l.push(false)
+	} else {
+		l.push(leftNumber > rightNumber)
+	}
+}
+
+func (l *ConditionListener) compareLargerEqual(leftValue interface{}, rightValue interface{}) {
+	leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+	rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+	if leftErr != nil || rightErr != nil {
+		l.push(false)
+	} else {
+		l.push(leftNumber >= rightNumber)
+	}
+}
+
+func (l *ConditionListener) compareLess(leftValue interface{}, rightValue interface{}) {
+	leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+	rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+	if leftErr != nil || rightErr != nil {
+		l.push(false)
+	} else {
+		l.push(leftNumber < rightNumber)
+	}
+}
+
+func (l *ConditionListener) compareLessEqual(leftValue interface{}, rightValue interface{}) {
+	leftNumber, leftErr := strconv.Atoi(fmt.Sprint(leftValue))
+	rightNumber, rightErr := strconv.Atoi(fmt.Sprint(rightValue))
+	if leftErr != nil || rightErr != nil {
+		l.push(false)
+	} else {
+		l.push(leftNumber <= rightNumber)
+	}
+}
+
+func (l *ConditionListener) compareIn(leftText string, leftValue interface{}, rightValue interface{}) {
+	paramArr := l.getParamArr(leftText)
+	paramsLen := len(paramArr)
+	if paramsLen <= 1 {
+		l.push(false)
+	} else {
+		leftStr := fmt.Sprint(leftValue)
+		checkFieldName := paramArr[paramsLen-1]
+		fmt.Println(leftStr)
+		fmt.Println(checkFieldName)
+		fmt.Println(reflect.TypeOf(rightValue))
+
+		switch rightValue.(type) {
+		case []interface{}:
+			rightValueSlice := rightValue.([]interface{})
+			for _, v := range rightValueSlice {
+				valueMap := v.(map[string]interface{})
+				if leftStr == fmt.Sprint(valueMap[checkFieldName]) {
+					l.push(true)
+					return
+				} else {
+					l.push(false)
+				}
+			}
+		default:
+			l.push(false)
+		}
+	}
 }

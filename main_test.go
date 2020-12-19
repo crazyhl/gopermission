@@ -232,7 +232,7 @@ func Test_Condition_Equal_Check(t *testing.T) {
 	condition := "model.Uid == 3"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 456
+	modelData["Uid"] = 3
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -244,7 +244,7 @@ func Test_Condition_Not_Equal_Check(t *testing.T) {
 	condition := "model.Uid != user.Id"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 123
+	modelData["Uid"] = 4561
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -258,11 +258,9 @@ func Test_Condition_Deep_Equal_Check(t *testing.T) {
 	userData := make(map[string]interface{})
 	modelData["Uid"] = 123
 	articleMap := make(map[string]interface{})
-	articleMap["Uid"] = 456
+	articleMap["Uid"] = 4561
 	modelData["Article"] = articleMap
 	userData["Id"] = "456"
-	fmt.Println(modelData)
-	fmt.Println(userData)
 	result := conditon.GetConditionResult(condition, modelData, userData)
 	t.Log(result)
 	t.Log(fmt.Sprint(nil))
@@ -276,7 +274,7 @@ func Test_Condition_Larger_Check(t *testing.T) {
 	//condition := "model.Uid > 3"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 456
+	modelData["Uid"] = 4566
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -289,7 +287,7 @@ func Test_Condition_Larger_Equal_Check(t *testing.T) {
 	//condition := "model.Uid > 3"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 456
+	modelData["Uid"] = 45
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -302,7 +300,7 @@ func Test_Condition_Less_Check(t *testing.T) {
 	//condition := "model.Uid > 3"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 46
+	modelData["Uid"] = 456
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -315,7 +313,7 @@ func Test_Condition_Less_Equal_Check(t *testing.T) {
 	//condition := "model.Uid > 3"
 	modelData := make(map[string]interface{})
 	userData := make(map[string]interface{})
-	modelData["Uid"] = 46
+	modelData["Uid"] = 4561
 	userData["Id"] = "456"
 	fmt.Println(modelData)
 	fmt.Println(userData)
@@ -324,11 +322,12 @@ func Test_Condition_Less_Equal_Check(t *testing.T) {
 }
 
 func Test_Condition_In_Check(t *testing.T) {
-	condition := "model.Id in user.Categories"
+	condition := "model.Name in user.Categories"
 	//condition := "model.Uid > 3"
 	modelData := make(map[string]interface{})
 
-	modelData["Id"] = 3
+	modelData["Id"] = 1
+	modelData["Name"] = "c3"
 	categories := make([]Cateogory, 0)
 	categories = append(categories, Cateogory{
 		Name: "c1",
