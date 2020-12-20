@@ -61,7 +61,7 @@ func HasPermission(user map[string]interface{}, path string, uri string, userPer
 				}
 				// 如果绑定了权限，那么就要进行后续判定了
 				paramValue := GetParams(path, uri, bindPermission.UrlParamName)
-				customCheckResult := customCheckFunction(bindPermission.ModelName, bindPermission.GetModelFieldName, paramValue, bindPermission.ModelCheckCondition, user)
+				customCheckResult := customCheckFunction(bindPermission.ModelName, paramValue, bindPermission.ModelCheckCondition, user)
 				// 只要有一个条件返回 true 就可以通过了
 				if customCheckResult == true {
 					return true

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 	"github.com/crazyhl/gopermission/v1/base_struct"
+	"github.com/crazyhl/gopermission/v1/config"
 	"github.com/crazyhl/gopermission/v1/listener/conditon"
 	"github.com/crazyhl/gopermission/v1/models"
 	"github.com/crazyhl/gopermission/v1/parser"
@@ -35,8 +36,10 @@ func Test_Add_Permission(t *testing.T) {
 	register()
 	url := "/user/keys/:id/:name"
 	p := &models.Permission{
-		Name: "TestPermission",
-		Url:  url,
+		Name:                "TestPermission",
+		Url:                 url,
+		ModelName:           "TestModel",
+		ModelCheckCondition: "model.Uid == user.Uid",
 	}
 	var err error
 	p, err = p.Add()
@@ -72,7 +75,7 @@ func Test_Delete_Permission(t *testing.T) {
 func Test_Add_Rule(t *testing.T) {
 	register()
 	r := &models.Rule{
-		Name: "test",
+		Name: "test1",
 	}
 	var err error
 	r, err = r.Add()
@@ -141,8 +144,8 @@ func Test_Add_Rule_With_Exist_Permission(t *testing.T) {
 
 func Test_Attach_Rule_Permission(t *testing.T) {
 	register()
-	r := ruleService.FindById(6)
-	ids := []int{2, 3}
+	r := ruleService.FindById(1)
+	ids := []int{1}
 	permissions := permissionService.FindByIds(ids)
 	t.Log(permissions)
 
@@ -369,6 +372,7 @@ func Test_Condition_Or_Check(t *testing.T) {
 		Username:   "aaa",
 		Categories: categories,
 	}
+
 	userMap := structs.Map(user)
 	fmt.Println(userMap)
 
@@ -426,11 +430,23 @@ func Test_Condition_Mix_Check(t *testing.T) {
 		Username:   "aaa",
 		Categories: categories,
 	}
+
 	userMap := structs.Map(user)
 	fmt.Println(userMap)
 
 	fmt.Println(modelData)
 	result := conditon.GetConditionResult(condition, modelData, userMap)
+	t.Log(result)
+}
+
+func Test_Has_Permission(t *testing.T) {
+	register()
+	gormDb := config.GetConfig().GormDb
+	permissions := []models.Permission{}
+	gormDb.Find(&permissions)
+	userData := make(map[string]interface{})
+	userData["Uid"] = 12
+	result := HasPermission(userData, "/user/keys/:id/:name", "/user/keys/123/name", permissions)
 	t.Log(result)
 }
 
@@ -445,7 +461,17 @@ func register() {
 		Database: "finance",
 		Charset:  "utf8mb4",
 		Location: "Asia%2fShanghai",
-	}, func(modelName string, getModelFieldName string, paramValue string, condition string, user map[string]interface{}) bool {
-		return true
+	}, func(modelName string, paramValue string, condition string, user map[string]interface{}) bool {
+		switch modelName {
+		case "Model":
+			modelMap := make(map[string]interface{})
+			if paramValue == "123" {
+				modelMap["Uid"] = 123
+				return conditon.GetConditionResult(condition, modelMap, user)
+			}
+
+		}
+
+		return false
 	})
 }
