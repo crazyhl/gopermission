@@ -3,13 +3,13 @@ package gopermission
 import (
 	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"github.com/crazyhl/gopermission/v1/base_struct"
-	"github.com/crazyhl/gopermission/v1/config"
-	"github.com/crazyhl/gopermission/v1/listener/conditon"
-	"github.com/crazyhl/gopermission/v1/models"
-	"github.com/crazyhl/gopermission/v1/parser"
-	permissionService "github.com/crazyhl/gopermission/v1/service/permission"
-	ruleService "github.com/crazyhl/gopermission/v1/service/rule"
+	"github.com/crazyhl/gopermission/base_struct"
+	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/listener/conditon"
+	"github.com/crazyhl/gopermission/models"
+	"github.com/crazyhl/gopermission/parser"
+	permissionService "github.com/crazyhl/gopermission/service/permission"
+	ruleService "github.com/crazyhl/gopermission/service/rule"
 	"github.com/fatih/structs"
 	"strings"
 	"testing"
@@ -416,7 +416,7 @@ func Test_Condition_Mix_Check(t *testing.T) {
 
 	modelData["Uid"] = 1
 	modelData["Id"] = 5
-	modelData["Name"] = "c1"
+	modelData["Name"] = "c111"
 	categories := make([]Cateogory, 0)
 	categories = append(categories, Cateogory{
 		Name: "c1",

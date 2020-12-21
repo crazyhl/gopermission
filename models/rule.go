@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com/crazyhl/gopermission/v1/config"
-	"github.com/crazyhl/gopermission/v1/utils/validator"
+	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/utils/validator"
 	"gorm.io/gorm/clause"
 )
 

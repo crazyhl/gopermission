@@ -2,7 +2,7 @@ package conditon
 
 import (
 	"fmt"
-	"github.com/crazyhl/gopermission/v1/parser"
+	"github.com/crazyhl/gopermission/parser"
 	"strconv"
 	"strings"
 )

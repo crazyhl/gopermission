@@ -1,9 +1,9 @@
 package bootstrap
 
 import (
-	"github.com/crazyhl/gopermission/v1/base_struct"
-	"github.com/crazyhl/gopermission/v1/config"
-	"github.com/crazyhl/gopermission/v1/models"
+	"github.com/crazyhl/gopermission/base_struct"
+	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

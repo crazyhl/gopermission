@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/crazyhl/gopermission/v1/base_struct"
+	"github.com/crazyhl/gopermission/base_struct"
 )
 
 var userConfig *base_struct.Config

@@ -1,4 +1,4 @@
-module github.com/crazyhl/gopermission/v1
+module github.com/crazyhl/gopermission
 
 go 1.15
 

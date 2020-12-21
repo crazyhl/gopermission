@@ -1,8 +1,8 @@
 package permission
 
 import (
-	"github.com/crazyhl/gopermission/v1/config"
-	"github.com/crazyhl/gopermission/v1/models"
+	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/models"
 )
 
 func FindById(id int) *models.Permission {

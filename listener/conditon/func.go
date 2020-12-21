@@ -2,7 +2,7 @@ package conditon
 
 import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"github.com/crazyhl/gopermission/v1/parser"
+	"github.com/crazyhl/gopermission/parser"
 	"strings"
 )
 

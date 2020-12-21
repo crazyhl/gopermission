@@ -3,11 +3,11 @@ package gopermission
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/crazyhl/gopermission/v1/base_struct"
-	"github.com/crazyhl/gopermission/v1/bootstrap"
-	"github.com/crazyhl/gopermission/v1/config"
-	"github.com/crazyhl/gopermission/v1/models"
-	"github.com/crazyhl/gopermission/v1/route"
+	"github.com/crazyhl/gopermission/base_struct"
+	"github.com/crazyhl/gopermission/bootstrap"
+	"github.com/crazyhl/gopermission/config"
+	"github.com/crazyhl/gopermission/models"
+	"github.com/crazyhl/gopermission/route"
 	"github.com/fatih/structs"
 	"gorm.io/gorm"
 )
