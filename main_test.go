@@ -39,7 +39,8 @@ func Test_Add_Permission(t *testing.T) {
 		Name:                "TestPermission",
 		Url:                 url,
 		ModelName:           "TestModel",
-		ModelCheckCondition: "model.Uid == user.Uid",
+		UrlParamName:        "id",
+		ModelCheckCondition: "a==b0",
 	}
 	var err error
 	err = p.Add()
