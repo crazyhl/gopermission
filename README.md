@@ -1,4 +1,7 @@
 # gopermission
+[![Go Report Card](https://goreportcard.com/badge/github.com/crazyhl/gopermission)](https://goreportcard.com/report/github.com/crazyhl/gopermission)
+
+
 基于 自己遇到场景抽象的 角色权限 判定组件，支持绑定模型，进行更进一步判定
 
 ## 致谢

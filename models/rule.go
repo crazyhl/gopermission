@@ -14,35 +14,35 @@ type Rule struct {
 }
 
 // 增加
-func (r *Rule) Add() (*Rule, error) {
+func (r *Rule) Add() error {
 	errs := validator.Validate(r)
 	if len(errs) > 0 {
-		return nil, errs[0]
+		return errs[0]
 	}
 
 	db := config.GetConfig().GormDb
 	result := db.Create(r)
 	if result.Error != nil {
-		return nil, result.Error
+		return result.Error
 	}
 
-	return r, nil
+	return nil
 }
 
 // 更新 - 这个只更新本体，不要更新关联权限相关，权限相关用后面权限相关的方法
-func (r *Rule) Update() (*Rule, error) {
+func (r *Rule) Update() error {
 	errs := validator.Validate(r)
 	if len(errs) > 0 {
-		return nil, errs[0]
+		return errs[0]
 	}
 
 	db := config.GetConfig().GormDb
 	result := db.Save(r)
 	if result.Error != nil {
-		return nil, result.Error
+		return result.Error
 	}
 
-	return r, nil
+	return nil
 }
 
 // 删除

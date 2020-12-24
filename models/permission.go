@@ -21,35 +21,35 @@ type Permission struct {
 }
 
 // 增加
-func (p *Permission) Add() (*Permission, error) {
+func (p *Permission) Add() error {
 	errs := validator.Validate(p)
 	if len(errs) > 0 {
-		return nil, errs[0]
+		return errs[0]
 	}
 
 	db := config.GetConfig().GormDb
 	result := db.Create(p)
 	if result.Error != nil {
-		return nil, result.Error
+		return result.Error
 	}
 
-	return p, nil
+	return nil
 }
 
 // 更新
-func (p *Permission) Update() (*Permission, error) {
+func (p *Permission) Update() error {
 	errs := validator.Validate(p)
 	if len(errs) > 0 {
-		return nil, errs[0]
+		return errs[0]
 	}
 
 	db := config.GetConfig().GormDb
 	result := db.Save(p)
 	if result.Error != nil {
-		return nil, result.Error
+		return result.Error
 	}
 
-	return p, nil
+	return nil
 }
 
 // 删除

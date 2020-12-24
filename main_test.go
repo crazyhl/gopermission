@@ -42,7 +42,7 @@ func Test_Add_Permission(t *testing.T) {
 		ModelCheckCondition: "model.Uid == user.Uid",
 	}
 	var err error
-	p, err = p.Add()
+	err = p.Add()
 
 	t.Log(p)
 	t.Log(err)
@@ -57,7 +57,7 @@ func Test_Update_Permission(t *testing.T) {
 	p.Url = "/user/keys/123/name"
 
 	var err error
-	p, err = p.Update()
+	err = p.Update()
 
 	t.Log(p)
 	t.Log(err)
@@ -78,7 +78,7 @@ func Test_Add_Rule(t *testing.T) {
 		Name: "test1",
 	}
 	var err error
-	r, err = r.Add()
+	err = r.Add()
 
 	t.Log(r)
 	t.Log(err)
@@ -92,7 +92,7 @@ func Test_Update_Rule(t *testing.T) {
 	r.Name = "test update"
 
 	var err error
-	r, err = r.Update()
+	err = r.Update()
 
 	t.Log(r)
 	t.Log(err)
@@ -112,7 +112,7 @@ func Test_Add_Rule_With_Permission(t *testing.T) {
 	r := &models.Rule{
 		Name: "test",
 	}
-	permissions := []models.Permission{}
+	var permissions []models.Permission
 	permissions = append(permissions, models.Permission{
 		Name: "testp",
 		Url:  "/fdsa/fdsa",
@@ -120,7 +120,7 @@ func Test_Add_Rule_With_Permission(t *testing.T) {
 	r.Permissions = permissions
 
 	var err error
-	r, err = r.Add()
+	err = r.Add()
 
 	t.Log(r)
 	t.Log(err)
@@ -136,7 +136,7 @@ func Test_Add_Rule_With_Exist_Permission(t *testing.T) {
 	r.Permissions = permissions
 
 	var err error
-	r, err = r.Add()
+	err = r.Add()
 
 	t.Log(r)
 	t.Log(err)
