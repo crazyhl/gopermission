@@ -6,7 +6,18 @@
 * gorm
 * antlr
 
-## 说明
+
+
+## 安装
+```shell
+go get -u github.com/crazyhl/gopermission
+```
+
+## 使用说明
+引入后，在自己的角色 `model` 中关联 `rule` 或者 `permission`，可以根据自己的需求决定关联两个或者其中一个。
+
+
+## 特殊说明
 目前是仅仅做到满足自己的需求
 
 数据库仅支持 `gorm` 和 `mysql`
@@ -28,7 +39,7 @@
 * &gt;=
 * &lt;
 * &lt;=
-* in 
+* in
 * ||
 * &&
 * ()

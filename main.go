@@ -83,5 +83,5 @@ func GetParams(path string, url string, paramKey string) string {
 
 // 把 struct 转换为 map
 func StructToMap(model interface{}) map[string]interface{} {
-	return structs.Map(&model)
+	return structs.Map(model)
 }

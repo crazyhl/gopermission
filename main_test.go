@@ -401,7 +401,7 @@ func Test_Condition_And_Check(t *testing.T) {
 		Username:   "aaa",
 		Categories: categories,
 	}
-	userMap := structs.Map(user)
+	userMap := StructToMap(user)
 	fmt.Println(userMap)
 
 	fmt.Println(modelData)
