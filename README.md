@@ -5,9 +5,9 @@
 
 
 ## 致谢
-* fiber
-* gorm
-* antlr
+* [fiber](https://github.com/gofiber/fiber)
+* [gorm](https://github.com/go-gorm/gorm)
+* [antlr](https://github.com/antlr/antlr4)
 
 
 
