@@ -76,7 +76,7 @@ func Test_Delete_Permission(t *testing.T) {
 func Test_Add_Rule(t *testing.T) {
 	register()
 	r := &models.Rule{
-		Name: "test1",
+		Name: "test1111",
 	}
 	var err error
 	err = r.Add()
@@ -87,7 +87,7 @@ func Test_Add_Rule(t *testing.T) {
 
 func Test_Update_Rule(t *testing.T) {
 	register()
-	r := ruleService.FindById(1)
+	r := ruleService.FindById(19)
 
 	t.Log(r)
 	r.Name = "test update"
