@@ -108,6 +108,14 @@ func Test_Delete_Rule(t *testing.T) {
 	t.Log(err)
 }
 
+func Test_Get_Rule(t *testing.T) {
+	register()
+	r := ruleService.FindById(11)
+
+	t.Log(r)
+	t.Log(StructToMap(r))
+}
+
 func Test_Add_Rule_With_Permission(t *testing.T) {
 	register()
 	r := &models.Rule{
