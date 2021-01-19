@@ -68,3 +68,8 @@ func (p *Permission) BeforeCreate(_ *gorm.DB) (err error) {
 	p.UrlMd5 = utils.GetStrMd5(p.Url)
 	return
 }
+
+func (p *Permission) BeforeUpdate(_ *gorm.DB) (err error) {
+	p.UrlMd5 = utils.GetStrMd5(p.Url)
+	return
+}
