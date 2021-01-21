@@ -14,9 +14,25 @@ func FindById(id int) *models.Permission {
 	return &p
 }
 
+func FindByIdString(id string) *models.Permission {
+	db := config.GetConfig().GormDb
+
+	p := models.Permission{}
+	db.First(&p, id)
+
+	return &p
+}
+
 func FindByIds(ids []int) []models.Permission {
 	db := config.GetConfig().GormDb
-	permissions := []models.Permission{}
+	var permissions []models.Permission
+	db.Where("id IN ?", ids).Find(&permissions)
+	return permissions
+}
+
+func FindByIdsString(ids []string) []models.Permission {
+	db := config.GetConfig().GormDb
+	var permissions []models.Permission
 	db.Where("id IN ?", ids).Find(&permissions)
 	return permissions
 }
