@@ -32,3 +32,12 @@ func AutoMigrateAndSetToContainer(db *gorm.DB) {
 	_ = db.AutoMigrate(&models.Permission{})
 	config.GetConfig().GormDb = db
 }
+
+func AutoMigrate(db *gorm.DB) {
+	_ = db.AutoMigrate(&models.Rule{})
+	_ = db.AutoMigrate(&models.Permission{})
+}
+
+func SetToContainer(db*gorm.DB) {
+	config.GetConfig().GormDb = db
+}

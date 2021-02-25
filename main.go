@@ -15,17 +15,26 @@ import (
 var customCheckFunction base_struct.CustomModelCheck
 
 // 注册使用权限系统
-func RegisterWithConfig(dbConfig base_struct.DbConfig, checkFunction base_struct.CustomModelCheck) {
+func RegisterWithConfigAndAutoMigrate(dbConfig base_struct.DbConfig, checkFunction base_struct.CustomModelCheck) {
 	// 初始化数据库
 	bootstrap.Db(dbConfig)
 	customCheckFunction = checkFunction
 }
 
 // 注册使用权限系统
-func RegisterWithDb(gormDb *gorm.DB, checkFunction base_struct.CustomModelCheck) {
+func RegisterWithDbAndAutoMigrate(gormDb *gorm.DB, checkFunction base_struct.CustomModelCheck) {
 	// 初始化数据库
 	bootstrap.AutoMigrateAndSetToContainer(gormDb)
 	customCheckFunction = checkFunction
+}
+
+func RegisterWithDb(gormDb *gorm.DB, checkFunction base_struct.CustomModelCheck) {
+	bootstrap.SetToContainer(gormDb)
+	customCheckFunction = checkFunction
+}
+
+func AutoMigrate(gormDb *gorm.DB) {
+	bootstrap.AutoMigrate(gormDb)
 }
 
 // 获取权限
