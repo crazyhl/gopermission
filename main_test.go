@@ -462,7 +462,7 @@ func Test_Has_Permission(t *testing.T) {
 // --------------------- private function -----------------------------
 
 func register() {
-	RegisterWithConfig(base_struct.DbConfig{
+	RegisterWithConfigAndAutoMigrate(base_struct.DbConfig{
 		Username: "root",
 		Password: "123456",
 		Host:     "127.0.0.1",
