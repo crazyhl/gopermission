@@ -19,6 +19,9 @@ go get -u github.com/crazyhl/gopermission
 ## 使用说明
 引入后，在自己的角色 `model` 中关联 `rule` 或者 `permission`，可以根据自己的需求决定关联两个或者其中一个。
 
+在权限判断中，如果没有根据 uri 和 requestMethod 找到对应的权限，就会通过，我认为没有注册的权限就不去要进行验证。
+requestMethod 如果不填写或者为 '*' 就会认为允许任何的请求方法
+
 
 ## 特殊说明
 目前是仅仅做到满足自己的需求

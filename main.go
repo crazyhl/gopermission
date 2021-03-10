@@ -10,6 +10,7 @@ import (
 	"github.com/crazyhl/gopermission/route"
 	"github.com/fatih/structs"
 	"gorm.io/gorm"
+	"strings"
 )
 
 var customCheckFunction base_struct.CustomModelCheck
@@ -38,7 +39,7 @@ func AutoMigrate(gormDb *gorm.DB) {
 }
 
 // 获取权限
-func GetPermission(path string) []models.Permission {
+func GetPermission(path string, requestMethod *string) []models.Permission {
 	// 参数 path 是 传入 权限的 url 字段
 	pathBytes := []byte(path)
 	md5Bytes := md5.Sum(pathBytes)
@@ -47,14 +48,19 @@ func GetPermission(path string) []models.Permission {
 
 	permissions := []models.Permission{}
 
-	db.Where("url_md5 = ?", md5Str).Find(&permissions)
+	requestMethodWhere := []string{"*", ""}
+	if requestMethod != nil {
+		requestMethodWhere = []string{strings.ToLower(*requestMethod), "*", ""}
+	}
+
+	db.Where("url_md5 = ?", md5Str).Where("method IN ?", requestMethodWhere).Find(&permissions)
 
 	return permissions
 }
 
 // 权限检测
-func HasPermission(user map[string]interface{}, path string, uri string, userPermissions []models.Permission) bool {
-	bindPermissions := GetPermission(path)
+func HasPermission(user map[string]interface{}, requestMethod string, path string, uri string, userPermissions []models.Permission) bool {
+	bindPermissions := GetPermission(path, &requestMethod)
 	// 如果 路径没有绑定任何权限，那么就直接通过
 	if len(bindPermissions) == 0 {
 		return true
@@ -62,7 +68,7 @@ func HasPermission(user map[string]interface{}, path string, uri string, userPer
 	// 如果获取到了权限就进行匹配
 	for _, bindPermission := range bindPermissions {
 		for _, userPermission := range userPermissions {
-			if bindPermission.Name == userPermission.Name {
+			if bindPermission.Name == userPermission.Name && (bindPermission.Method == "" || bindPermission.Method == "*" || strings.ToLower(requestMethod) == bindPermission.Method) {
 				// 如果用户包含这个权限就进行后续判定
 				// 如果这个权限没有绑定模型就可以直接通过了
 				if bindPermission.ModelName == "" {

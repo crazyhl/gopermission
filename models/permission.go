@@ -5,6 +5,7 @@ import (
 	"github.com/crazyhl/gopermission/utils"
 	"github.com/crazyhl/gopermission/utils/validator"
 	"gorm.io/gorm"
+	"strings"
 )
 
 // 权限
@@ -12,6 +13,7 @@ type Permission struct {
 	BaseModel
 	Name        string `gorm:"not null;default: '';uniqueIndex" validate:"required"`                            // 权限名称，必填，唯一
 	Description string `gorm:"not null;default: '';"`                                                           // 描述
+	Method      string `gorm:"not null;default: '';index"`                                                      // 请求方法
 	Url         string `gorm:"not null;default: '';" validate:"required"`                                       // 绑定的 url，必填，在我看来一个权限如果不绑定url那是无意义的
 	UrlMd5      string `gorm:"type:char(32);not null;default: '';index"`                                        // 绑定 url 的 md5，用来检索
 	ModelName   string `gorm:"not null;default: '';" validate:"required_with=UrlParamName ModelCheckCondition"` // 绑定的模型名称，这个是用来进行进一步验证用的
@@ -66,10 +68,16 @@ func (p *Permission) Delete() (int64, error) {
 
 func (p *Permission) BeforeCreate(_ *gorm.DB) (err error) {
 	p.UrlMd5 = utils.GetStrMd5(p.Url)
+	if p.Method != "" {
+		p.Method = strings.ToLower(p.Method)
+	}
 	return
 }
 
 func (p *Permission) BeforeUpdate(_ *gorm.DB) (err error) {
 	p.UrlMd5 = utils.GetStrMd5(p.Url)
+	if p.Method != "" {
+		p.Method = strings.ToLower(p.Method)
+	}
 	return
 }

@@ -38,6 +38,7 @@ func Test_Add_Permission(t *testing.T) {
 	p := &models.Permission{
 		Name:                "TestPermission",
 		Url:                 url,
+		Method:              "GEt",
 		ModelName:           "TestModel",
 		UrlParamName:        "id",
 		ModelCheckCondition: "a==b0",
@@ -454,8 +455,8 @@ func Test_Has_Permission(t *testing.T) {
 	permissions := []models.Permission{}
 	gormDb.Find(&permissions)
 	userData := make(map[string]interface{})
-	userData["Uid"] = 12
-	result := HasPermission(userData, "/user/keys/:id/:name", "/user/keys/123/name", permissions)
+	userData["Uid"] = 123
+	result := HasPermission(userData, "Delete", "/user/keys/:id/:name", "/user/keys/123/name", permissions)
 	t.Log(result)
 }
 
